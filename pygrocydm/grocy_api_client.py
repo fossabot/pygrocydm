@@ -1,0 +1,71 @@
+import json
+import os
+from urllib.parse import urljoin
+
+import requests
+
+DEFAULT_PORT_NUMBER = 9192
+
+
+class GrocyApiClient(object):
+    def __init__(self, base_url, api_key, port: int = DEFAULT_PORT_NUMBER, verify_ssl=True):
+        self.__base_url = '{}:{}/api/'.format(base_url, port)
+        self.__api_key = api_key
+        self.__verify_ssl = verify_ssl
+        if self.__api_key == "demo_mode":
+            self.__headers = {"accept": "application/json"}
+        else:
+            self.__headers = {
+                "accept": "application/json",
+                "GROCY-API-KEY": api_key
+            }
+
+    def get_request(self, endpoint: str):
+        req_url = urljoin(self.__base_url, endpoint)
+        resp = requests.get(req_url, verify=self.__verify_ssl, headers=self.__headers)
+        if resp.status_code != 200:
+            return resp
+        return resp.json()
+
+    def post_request(self, endpoint: str, data={}):
+        req_url = urljoin(self.__base_url, endpoint)
+        resp = requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)
+        if resp.status_code != 200:
+            return resp
+        if resp.text:
+            return resp.json()
+        return True
+
+    def delete_request(self, endpoint: str):
+        req_url = urljoin(self.__base_url, endpoint)
+        resp = requests.delete(req_url, verify=self.__verify_ssl, headers=self.__headers)
+        if resp.status_code != 204:
+            return resp
+        if resp.text:
+            return resp.json()
+        return True
+
+    def put_request(self, endpoint: str, data={}):
+        up_header = self.__headers.copy()
+        up_header['accept'] = '*/*'
+        up_header['Content-Type'] = 'application/json'
+        req_url = urljoin(self.__base_url, endpoint)
+        resp = requests.put(req_url, verify=self.__verify_ssl, headers=up_header, data=json.dumps(data))
+        if resp.status_code != 204:
+            return resp
+        if resp.text:
+            return resp.json()
+        return True
+
+
+class GrocyEntity(object):
+    def __init__(self, api: GrocyApiClient, endpoint: str):
+        self.__api = api
+        self.__endpoint = endpoint
+
+    def edit(self, data: dict):
+        return self.__api.put_request(self.__endpoint, data)
+
+    def delete(self):
+        return self.__api.delete_request(self.__endpoint)
+

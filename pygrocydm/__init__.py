@@ -1,6 +1,6 @@
 """
-The pygrocy module
+The pygrocydm module
 """
-from .grocydm import GrocyDataManager
+from .grocy_datamanager import GrocyDataManager
 
 name = "pygrocydm"
