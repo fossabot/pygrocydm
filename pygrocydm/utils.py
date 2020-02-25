@@ -27,7 +27,9 @@ def parse_float(input_value, default_value=None):
 def parse_bool(input_value, default_value=None):
     if input_value is None:
         return default_value
-    try:
-        return bool(input_value)
-    except ValueError:
+    if str(input_value) == '1' or input_value == "True":
+        return True
+    elif str(input_value) == '0' or input_value == "False":
+        return False
+    else:
         return default_value
