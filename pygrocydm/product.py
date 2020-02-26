@@ -102,4 +102,4 @@ class Product(GrocyEntity):
 
     @property
     def row_created_timestamp(self) -> datetime:
-        return self.__qu_id_purchase
+        return self.__row_created_timestamp
