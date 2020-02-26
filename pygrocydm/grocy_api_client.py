@@ -68,4 +68,3 @@ class GrocyEntity(object):
 
     def delete(self):
         return self.__api.delete_request(self.__endpoint)
-

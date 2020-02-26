@@ -13,4 +13,3 @@ class GrocyDataManager(object):
         endpoint = 'objects/products'
         parsed_json = self.__api.get_request(endpoint)
         return [Product(response, self.__api) for response in parsed_json] 
-

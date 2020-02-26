@@ -54,7 +54,7 @@ class TestProduct(TestCase):
         assert isinstance(product.id, int)
         assert isinstance(product.product_group_id, int)
         assert isinstance(product.name, str)
-        assert isinstance(product.barcodes, str) or isinstance(product.barcodes, list) or product.barcodes is None
+        assert isinstance(product.barcodes, (str, list) or product.barcodes is None
         assert isinstance(product.location_id, int) or product.location_id is None
         assert isinstance(product.qu_id_purchase, int) or product.qu_id_purchase is None
         assert isinstance(product.description, str) or product.description is None
@@ -67,5 +67,5 @@ class TestProduct(TestCase):
         assert isinstance(product.default_best_before_days, int) or product.default_best_before_days is None
         assert isinstance(product.default_best_before_days_after_open, int) or product.default_best_before_days_after_open is None
         assert isinstance(product.picture_file_name, str) or product.picture_file_name is None
-        assert isinstance(product.allow_partial_units_in_stock, int) or product.allow_partial_units_in_stock == False
+        assert isinstance(product.allow_partial_units_in_stock, int) or not product.allow_partial_units_in_stock
         assert isinstance(product.row_created_timestamp, datetime)
