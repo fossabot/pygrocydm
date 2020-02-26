@@ -4,10 +4,9 @@ from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
 from typing import List
 from unittest import TestCase
 
-
 import responses
 
-from pygrocydm.chore import Chore, CHORES_ENDPOINT
+from pygrocydm.chore import CHORES_ENDPOINT, Chore
 from pygrocydm.grocy_api_client import GrocyApiClient
 
 

@@ -3,13 +3,9 @@ from datetime import datetime
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
 from typing import List
 from unittest import TestCase
-import unittest
-from unittest.mock import mock_open, patch
 
-import responses
-
-from pygrocydm.product import Product
 from pygrocydm.grocy_api_client import GrocyApiClient
+from pygrocydm.product import Product
 
 
 class TestProduct(TestCase):

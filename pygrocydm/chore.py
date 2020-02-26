@@ -1,8 +1,8 @@
-from .utils import parse_date, parse_float, parse_int, parse_bool
-
-from enum import Enum
 from datetime import datetime
+from enum import Enum
+
 from .grocy_api_client import GrocyApiClient, GrocyEntity
+from .utils import parse_bool, parse_date, parse_float, parse_int
 
 CHORES_ENDPOINT = 'objects/chores'
 

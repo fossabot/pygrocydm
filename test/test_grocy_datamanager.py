@@ -1,15 +1,10 @@
-from unittest import TestCase
-from unittest.mock import patch, mock_open
-import unittest
-
-
-from typing import List
-import responses
-from pygrocydm import GrocyDataManager
-from pygrocydm.product import Product
-from pygrocydm.chore import Chore
-
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL, SKIP_REAL
+from typing import List
+from unittest import TestCase
+
+from pygrocydm import GrocyDataManager
+from pygrocydm.chore import Chore
+from pygrocydm.product import Product
 
 
 class TestGrocyDataManager(TestCase):
