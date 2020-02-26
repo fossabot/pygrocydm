@@ -29,7 +29,6 @@ def parse_bool(input_value, default_value=None):
         return default_value
     if str(input_value) == '1' or input_value == "True":
         return True
-    elif str(input_value) == '0' or input_value == "False":
+    if str(input_value) == '0' or input_value == "False":
         return False
-    else:
-        return default_value
+    return default_value
