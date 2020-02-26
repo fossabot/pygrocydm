@@ -54,7 +54,7 @@ class TestProduct(TestCase):
         assert isinstance(product.id, int)
         assert isinstance(product.product_group_id, int)
         assert isinstance(product.name, str)
-        assert isinstance(product.barcodes, (str, list) or product.barcodes is None
+        assert isinstance(product.barcodes, (str, list)) or product.barcodes is None
         assert isinstance(product.location_id, int) or product.location_id is None
         assert isinstance(product.qu_id_purchase, int) or product.qu_id_purchase is None
         assert isinstance(product.description, str) or product.description is None
