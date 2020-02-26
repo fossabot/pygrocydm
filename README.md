@@ -13,3 +13,12 @@ Import the package:
 from pygrocydm import GrocyDataManager
 ```
 
+Obtain a grocy instance:
+```python
+gdm = GrocyDataManager("https://example.com", "GROCY_API_KEY")
+```
+or
+```python
+gdm = GrocyDataManager("https://example.com", "GROCY_API_KEY", port = 9192, verify_ssl = True)
+```
+
