@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.7.4" />
+<title>pygrocydm.product API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pygrocydm.product</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from datetime import datetime
+from typing import List
+
+from .grocy_api_client import GrocyApiClient, GrocyEntity
+from .utils import parse_bool, parse_date, parse_float, parse_int
+
+PRODUCTS_ENDPOINT = &#39;objects/products&#39;
+
+class Product(GrocyEntity):
+    def __init__(self, parsed_json, api: GrocyApiClient):
+        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+        self.__name = parsed_json.get(&#39;name&#39;)
+        self.__description = parsed_json.get(&#39;description&#39;, None)
+        self.__location_id = parse_int(parsed_json.get(&#39;location_id&#39;, None))
+        self.__qu_id_purchase = parse_int(parsed_json.get(&#39;qu_id_purchase&#39;, None))
+        self.__qu_id_stock = parse_int(parsed_json.get(&#39;qu_id_stock&#39;, None))
+        self.__enable_tare_weight_handling = parse_int(parsed_json.get(&#39;enable_tare_weight_handling&#39;, None))
+        self.__not_check_stock_fulfillment_for_recipes = parse_int(parsed_json.get(&#39;not_check_stock_fulfillment_for_recipes&#39;), None)
+        self.__product_group_id = parse_int(parsed_json.get(&#39;product_group_id&#39;))
+        self.__qu_factor_purchase_to_stock = parse_float(parsed_json.get(&#39;qu_factor_purchase_to_stock&#39;, None))
+        self.__tare_weight = parse_float(parsed_json.get(&#39;tare_weight&#39;, None))
+        barcodes_raw = parsed_json.get(&#39;barcode&#39;, &#34;&#34;)
+        if barcodes_raw:
+            self.__barcodes = barcodes_raw.split(&#34;,&#34;)
+        else:
+            self.__barcodes = None
+        self.__min_stock_amount = parse_int(parsed_json.get(&#39;min_stock_amount&#39;, None), 0)
+        self.__default_best_before_days = parse_int(parsed_json.get(&#39;default_best_before_days&#39;, None))
+        self.__default_best_before_days_after_open = parse_int(parsed_json.get(&#39;default_best_before_days_after_open&#39;, None))
+        self.__picture_file_name = parsed_json.get(&#39;picture_file_name&#39;, None)
+        self.__allow_partial_units_in_stock = parse_int(parsed_json.get(&#39;allow_partial_units_in_stock&#39;, False), False)
+        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__endpoint = &#39;{}/{}&#39;.format(PRODUCTS_ENDPOINT, self.__id)
+        super().__init__(api, self.__endpoint)
+
+    @property
+    def id(self) -&gt; int:
+        return self.__id
+
+    @property
+    def product_group_id(self) -&gt; int:
+        return self.__product_group_id
+
+    @property
+    def name(self) -&gt; str:
+        return self.__name
+
+    @property
+    def barcodes(self) -&gt; List[str]:
+        return self.__barcodes
+
+    @property
+    def location_id(self) -&gt; int:
+        return self.__location_id
+
+    @property
+    def qu_id_purchase(self) -&gt; int:
+        return self.__qu_id_purchase
+
+    @property
+    def description(self) -&gt; str:
+        return self.__description
+
+    @property
+    def qu_id_stock(self) -&gt; int:
+        return self.__qu_id_stock
+
+    @property
+    def enable_tare_weight_handling(self) -&gt; int:
+        return self.__enable_tare_weight_handling
+
+    @property
+    def not_check_stock_fulfillment_for_recipes(self) -&gt; int:
+        return self.__not_check_stock_fulfillment_for_recipes
+
+    @property
+    def qu_factor_purchase_to_stock(self) -&gt; float:
+        return self.__qu_factor_purchase_to_stock
+
+    @property
+    def tare_weight(self) -&gt; float:
+        return self.__tare_weight
+
+    @property
+    def min_stock_amount(self) -&gt; int:
+        return self.__min_stock_amount
+
+    @property
+    def default_best_before_days(self) -&gt; int:
+        return self.__default_best_before_days
+
+    @property
+    def default_best_before_days_after_open(self) -&gt; int:
+        return self.__default_best_before_days_after_open
+
+    @property
+    def picture_file_name(self) -&gt; str:
+        return self.__picture_file_name
+
+    @property
+    def allow_partial_units_in_stock(self) -&gt; int:
+        return self.__allow_partial_units_in_stock
+
+    @property
+    def row_created_timestamp(self) -&gt; datetime:
+        return self.__row_created_timestamp</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pygrocydm.product.Product"><code class="flex name class">
+<span>class <span class="ident">Product</span></span>
+<span>(</span><span>parsed_json, api)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Product(GrocyEntity):
+    def __init__(self, parsed_json, api: GrocyApiClient):
+        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+        self.__name = parsed_json.get(&#39;name&#39;)
+        self.__description = parsed_json.get(&#39;description&#39;, None)
+        self.__location_id = parse_int(parsed_json.get(&#39;location_id&#39;, None))
+        self.__qu_id_purchase = parse_int(parsed_json.get(&#39;qu_id_purchase&#39;, None))
+        self.__qu_id_stock = parse_int(parsed_json.get(&#39;qu_id_stock&#39;, None))
+        self.__enable_tare_weight_handling = parse_int(parsed_json.get(&#39;enable_tare_weight_handling&#39;, None))
+        self.__not_check_stock_fulfillment_for_recipes = parse_int(parsed_json.get(&#39;not_check_stock_fulfillment_for_recipes&#39;), None)
+        self.__product_group_id = parse_int(parsed_json.get(&#39;product_group_id&#39;))
+        self.__qu_factor_purchase_to_stock = parse_float(parsed_json.get(&#39;qu_factor_purchase_to_stock&#39;, None))
+        self.__tare_weight = parse_float(parsed_json.get(&#39;tare_weight&#39;, None))
+        barcodes_raw = parsed_json.get(&#39;barcode&#39;, &#34;&#34;)
+        if barcodes_raw:
+            self.__barcodes = barcodes_raw.split(&#34;,&#34;)
+        else:
+            self.__barcodes = None
+        self.__min_stock_amount = parse_int(parsed_json.get(&#39;min_stock_amount&#39;, None), 0)
+        self.__default_best_before_days = parse_int(parsed_json.get(&#39;default_best_before_days&#39;, None))
+        self.__default_best_before_days_after_open = parse_int(parsed_json.get(&#39;default_best_before_days_after_open&#39;, None))
+        self.__picture_file_name = parsed_json.get(&#39;picture_file_name&#39;, None)
+        self.__allow_partial_units_in_stock = parse_int(parsed_json.get(&#39;allow_partial_units_in_stock&#39;, False), False)
+        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__endpoint = &#39;{}/{}&#39;.format(PRODUCTS_ENDPOINT, self.__id)
+        super().__init__(api, self.__endpoint)
+
+    @property
+    def id(self) -&gt; int:
+        return self.__id
+
+    @property
+    def product_group_id(self) -&gt; int:
+        return self.__product_group_id
+
+    @property
+    def name(self) -&gt; str:
+        return self.__name
+
+    @property
+    def barcodes(self) -&gt; List[str]:
+        return self.__barcodes
+
+    @property
+    def location_id(self) -&gt; int:
+        return self.__location_id
+
+    @property
+    def qu_id_purchase(self) -&gt; int:
+        return self.__qu_id_purchase
+
+    @property
+    def description(self) -&gt; str:
+        return self.__description
+
+    @property
+    def qu_id_stock(self) -&gt; int:
+        return self.__qu_id_stock
+
+    @property
+    def enable_tare_weight_handling(self) -&gt; int:
+        return self.__enable_tare_weight_handling
+
+    @property
+    def not_check_stock_fulfillment_for_recipes(self) -&gt; int:
+        return self.__not_check_stock_fulfillment_for_recipes
+
+    @property
+    def qu_factor_purchase_to_stock(self) -&gt; float:
+        return self.__qu_factor_purchase_to_stock
+
+    @property
+    def tare_weight(self) -&gt; float:
+        return self.__tare_weight
+
+    @property
+    def min_stock_amount(self) -&gt; int:
+        return self.__min_stock_amount
+
+    @property
+    def default_best_before_days(self) -&gt; int:
+        return self.__default_best_before_days
+
+    @property
+    def default_best_before_days_after_open(self) -&gt; int:
+        return self.__default_best_before_days_after_open
+
+    @property
+    def picture_file_name(self) -&gt; str:
+        return self.__picture_file_name
+
+    @property
+    def allow_partial_units_in_stock(self) -&gt; int:
+        return self.__allow_partial_units_in_stock
+
+    @property
+    def row_created_timestamp(self) -&gt; datetime:
+        return self.__row_created_timestamp</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pygrocydm.grocy_api_client.GrocyEntity" href="grocy_api_client.html#pygrocydm.grocy_api_client.GrocyEntity">GrocyEntity</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pygrocydm.product.Product.allow_partial_units_in_stock"><code class="name">var <span class="ident">allow_partial_units_in_stock</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def allow_partial_units_in_stock(self) -&gt; int:
+    return self.__allow_partial_units_in_stock</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.barcodes"><code class="name">var <span class="ident">barcodes</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def barcodes(self) -&gt; List[str]:
+    return self.__barcodes</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.default_best_before_days"><code class="name">var <span class="ident">default_best_before_days</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def default_best_before_days(self) -&gt; int:
+    return self.__default_best_before_days</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.default_best_before_days_after_open"><code class="name">var <span class="ident">default_best_before_days_after_open</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def default_best_before_days_after_open(self) -&gt; int:
+    return self.__default_best_before_days_after_open</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.description"><code class="name">var <span class="ident">description</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    return self.__description</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.enable_tare_weight_handling"><code class="name">var <span class="ident">enable_tare_weight_handling</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def enable_tare_weight_handling(self) -&gt; int:
+    return self.__enable_tare_weight_handling</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.id"><code class="name">var <span class="ident">id</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    return self.__id</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.location_id"><code class="name">var <span class="ident">location_id</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def location_id(self) -&gt; int:
+    return self.__location_id</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.min_stock_amount"><code class="name">var <span class="ident">min_stock_amount</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def min_stock_amount(self) -&gt; int:
+    return self.__min_stock_amount</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.name"><code class="name">var <span class="ident">name</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    return self.__name</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.not_check_stock_fulfillment_for_recipes"><code class="name">var <span class="ident">not_check_stock_fulfillment_for_recipes</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def not_check_stock_fulfillment_for_recipes(self) -&gt; int:
+    return self.__not_check_stock_fulfillment_for_recipes</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.picture_file_name"><code class="name">var <span class="ident">picture_file_name</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def picture_file_name(self) -&gt; str:
+    return self.__picture_file_name</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.product_group_id"><code class="name">var <span class="ident">product_group_id</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def product_group_id(self) -&gt; int:
+    return self.__product_group_id</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.qu_factor_purchase_to_stock"><code class="name">var <span class="ident">qu_factor_purchase_to_stock</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def qu_factor_purchase_to_stock(self) -&gt; float:
+    return self.__qu_factor_purchase_to_stock</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.qu_id_purchase"><code class="name">var <span class="ident">qu_id_purchase</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def qu_id_purchase(self) -&gt; int:
+    return self.__qu_id_purchase</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.qu_id_stock"><code class="name">var <span class="ident">qu_id_stock</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def qu_id_stock(self) -&gt; int:
+    return self.__qu_id_stock</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.row_created_timestamp"><code class="name">var <span class="ident">row_created_timestamp</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def row_created_timestamp(self) -&gt; datetime:
+    return self.__row_created_timestamp</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.product.Product.tare_weight"><code class="name">var <span class="ident">tare_weight</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def tare_weight(self) -&gt; float:
+    return self.__tare_weight</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pygrocydm" href="index.html">pygrocydm</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pygrocydm.product.Product" href="#pygrocydm.product.Product">Product</a></code></h4>
+<ul class="">
+<li><code><a title="pygrocydm.product.Product.allow_partial_units_in_stock" href="#pygrocydm.product.Product.allow_partial_units_in_stock">allow_partial_units_in_stock</a></code></li>
+<li><code><a title="pygrocydm.product.Product.barcodes" href="#pygrocydm.product.Product.barcodes">barcodes</a></code></li>
+<li><code><a title="pygrocydm.product.Product.default_best_before_days" href="#pygrocydm.product.Product.default_best_before_days">default_best_before_days</a></code></li>
+<li><code><a title="pygrocydm.product.Product.default_best_before_days_after_open" href="#pygrocydm.product.Product.default_best_before_days_after_open">default_best_before_days_after_open</a></code></li>
+<li><code><a title="pygrocydm.product.Product.description" href="#pygrocydm.product.Product.description">description</a></code></li>
+<li><code><a title="pygrocydm.product.Product.enable_tare_weight_handling" href="#pygrocydm.product.Product.enable_tare_weight_handling">enable_tare_weight_handling</a></code></li>
+<li><code><a title="pygrocydm.product.Product.id" href="#pygrocydm.product.Product.id">id</a></code></li>
+<li><code><a title="pygrocydm.product.Product.location_id" href="#pygrocydm.product.Product.location_id">location_id</a></code></li>
+<li><code><a title="pygrocydm.product.Product.min_stock_amount" href="#pygrocydm.product.Product.min_stock_amount">min_stock_amount</a></code></li>
+<li><code><a title="pygrocydm.product.Product.name" href="#pygrocydm.product.Product.name">name</a></code></li>
+<li><code><a title="pygrocydm.product.Product.not_check_stock_fulfillment_for_recipes" href="#pygrocydm.product.Product.not_check_stock_fulfillment_for_recipes">not_check_stock_fulfillment_for_recipes</a></code></li>
+<li><code><a title="pygrocydm.product.Product.picture_file_name" href="#pygrocydm.product.Product.picture_file_name">picture_file_name</a></code></li>
+<li><code><a title="pygrocydm.product.Product.product_group_id" href="#pygrocydm.product.Product.product_group_id">product_group_id</a></code></li>
+<li><code><a title="pygrocydm.product.Product.qu_factor_purchase_to_stock" href="#pygrocydm.product.Product.qu_factor_purchase_to_stock">qu_factor_purchase_to_stock</a></code></li>
+<li><code><a title="pygrocydm.product.Product.qu_id_purchase" href="#pygrocydm.product.Product.qu_id_purchase">qu_id_purchase</a></code></li>
+<li><code><a title="pygrocydm.product.Product.qu_id_stock" href="#pygrocydm.product.Product.qu_id_stock">qu_id_stock</a></code></li>
+<li><code><a title="pygrocydm.product.Product.row_created_timestamp" href="#pygrocydm.product.Product.row_created_timestamp">row_created_timestamp</a></code></li>
+<li><code><a title="pygrocydm.product.Product.tare_weight" href="#pygrocydm.product.Product.tare_weight">tare_weight</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
