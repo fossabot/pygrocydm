@@ -2,6 +2,11 @@ language: python
 python:
   - '3.6'
 
+env:
+      global:
+        # Doctr deploy key for BlueBlueBlob/pygrocydm
+        - secure: "eTmAeFa9/sVyVOEqt7cRWdJrrcCPAv50NAX6UhL5kYp0KgQcTjjwSzkL3x4Xi8/maMh3xSTM1a8K86c9pBbrT9BlnCaQuMT5wu/KOjgxUI5UuIa/qaaiZqAkwIETxIGeVendziRqnpsoUI2SnQeBHRtHJYtldAB4ldt2tprhgvrBP4ZpRNbmg3O86Sqjryw5YFku1wiHIsmrFOUjok+v57iNHFrN1r+v4vUmOr1kMyKuxw/mXlFJxfTQtkz4/CAmqXxP2sj24/WkhYepghN4lUfbGiddr2fuTjOQLJi5TkGm9PAsSZcD6Wx8Rrf7c0CY6gMOlnroFqzlVcn+obLRh6YHZTo1c6i94jLBcQeED6U2UO/a44IDiCRCUv3Zb5QEQ/8xEKX6DPm5YytzN9D76jhZ8VpFhyUtg9Wxy6YaJ0hRVbbJKUQgwhFdIX/x+lPkHUiB4K0Rjnk9FuZc8wGDd8NtgmeJMUjkDmTTa3DFA5edCL19yuntVRYBIGCcgPAFv0EmbbECybQO51YToIAW7kMfQjQLj69jbGAnjz7NctUc4gw4ZnqHZT4s2nijCDv0+MgUdjj19hbQPtxqPW025fNcQWB7Ml0T3xJya8IZ48MfXJkKrIVArmsKukPivGi7kpgwrqezH+R6Hmm923b2Xst7ApSNlfe3i1PkfEE4UZw="
+
 services:
   - docker
 
@@ -25,3 +30,4 @@ script:
 after_success:
   - coveralls
   - docker-compose down
+  - doctr deploy --built-docs html/ .
