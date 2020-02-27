@@ -20,7 +20,7 @@ install:
 script:
   - coverage run --source=pygrocydm setup.py test
   - set -e
-  - pdoc --html pygrocydm
+  - pdoc3 --html pygrocydm
 
 after_success:
   - coveralls
