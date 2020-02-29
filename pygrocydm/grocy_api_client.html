@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.7.4" />
+<meta name="generator" content="pdoc 0.7.5" />
 <title>pygrocydm.grocy_api_client API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
@@ -26,6 +26,7 @@
 </summary>
 <pre><code class="python">import json
 from urllib.parse import urljoin
+from typing import List
 
 import requests
 
@@ -92,7 +93,30 @@ class GrocyEntity(object):
         return self.__api.put_request(self.__endpoint, data)
 
     def delete(self):
-        return self.__api.delete_request(self.__endpoint)</code></pre>
+        return self.__api.delete_request(self.__endpoint)
+
+
+class GrocyEntityList(object):
+    def __init__(self, api: GrocyApiClient, cls, endpoint: str):
+        self.__api = api
+        self.__cls = cls
+        self.__endpoint = endpoint
+        self.__list = []
+        self.refresh()
+
+    def refresh(self):
+        parsed_json = self.__api.get_request(self.__endpoint)
+        self.__list = [self.__cls(response, self.__api) for response in parsed_json]
+
+    def add(self, item: dict):
+        response = self.__api.put_request(self.__endpoint, item)
+        if response:
+            self.refresh()
+        return response
+
+    @property
+    def list(self) -&gt; List[GrocyEntity]:
+        return self.__list</code></pre>
 </details>
 </section>
 <section>
@@ -301,6 +325,87 @@ class GrocyEntity(object):
 </dd>
 </dl>
 </dd>
+<dt id="pygrocydm.grocy_api_client.GrocyEntityList"><code class="flex name class">
+<span>class <span class="ident">GrocyEntityList</span></span>
+<span>(</span><span>api, cls, endpoint)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GrocyEntityList(object):
+    def __init__(self, api: GrocyApiClient, cls, endpoint: str):
+        self.__api = api
+        self.__cls = cls
+        self.__endpoint = endpoint
+        self.__list = []
+        self.refresh()
+
+    def refresh(self):
+        parsed_json = self.__api.get_request(self.__endpoint)
+        self.__list = [self.__cls(response, self.__api) for response in parsed_json]
+
+    def add(self, item: dict):
+        response = self.__api.put_request(self.__endpoint, item)
+        if response:
+            self.refresh()
+        return response
+
+    @property
+    def list(self) -&gt; List[GrocyEntity]:
+        return self.__list</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pygrocydm.grocy_api_client.GrocyEntityList.list"><code class="name">var <span class="ident">list</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def list(self) -&gt; List[GrocyEntity]:
+    return self.__list</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pygrocydm.grocy_api_client.GrocyEntityList.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>self, item)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(self, item: dict):
+    response = self.__api.put_request(self.__endpoint, item)
+    if response:
+        self.refresh()
+    return response</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.grocy_api_client.GrocyEntityList.refresh"><code class="name flex">
+<span>def <span class="ident">refresh</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def refresh(self):
+    parsed_json = self.__api.get_request(self.__endpoint)
+    self.__list = [self.__cls(response, self.__api) for response in parsed_json]</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
 </dl>
 </section>
 </article>
@@ -333,13 +438,21 @@ class GrocyEntity(object):
 <li><code><a title="pygrocydm.grocy_api_client.GrocyEntity.edit" href="#pygrocydm.grocy_api_client.GrocyEntity.edit">edit</a></code></li>
 </ul>
 </li>
+<li>
+<h4><code><a title="pygrocydm.grocy_api_client.GrocyEntityList" href="#pygrocydm.grocy_api_client.GrocyEntityList">GrocyEntityList</a></code></h4>
+<ul class="">
+<li><code><a title="pygrocydm.grocy_api_client.GrocyEntityList.add" href="#pygrocydm.grocy_api_client.GrocyEntityList.add">add</a></code></li>
+<li><code><a title="pygrocydm.grocy_api_client.GrocyEntityList.list" href="#pygrocydm.grocy_api_client.GrocyEntityList.list">list</a></code></li>
+<li><code><a title="pygrocydm.grocy_api_client.GrocyEntityList.refresh" href="#pygrocydm.grocy_api_client.GrocyEntityList.refresh">refresh</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.4</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.7.5</a>.</p>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad()</script>
