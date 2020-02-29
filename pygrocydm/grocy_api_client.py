@@ -1,5 +1,6 @@
 import json
 from urllib.parse import urljoin
+from typing import List
 
 import requests
 
@@ -67,3 +68,26 @@ class GrocyEntity(object):
 
     def delete(self):
         return self.__api.delete_request(self.__endpoint)
+
+
+class GrocyEntityList(object):
+    def __init__(self, api: GrocyApiClient, cls, endpoint: str):
+        self.__api = api
+        self.__cls = cls
+        self.__endpoint = endpoint
+        self.__list = []
+        self.refresh()
+
+    def refresh(self):
+        parsed_json = self.__api.get_request(self.__endpoint)
+        self.__list = [self.__cls(response, self.__api) for response in parsed_json]
+
+    def add(self, item: dict):
+        response = self.__api.put_request(self.__endpoint, item)
+        if response:
+            self.refresh()
+        return response
+
+    @property
+    def list(self) -> List[GrocyEntity]:
+        return self.__list
