@@ -37,8 +37,6 @@ class GrocyApiClient(object):
         req_url = urljoin(self.__base_url, endpoint)
         resp = requests.delete(req_url, verify=self.__verify_ssl, headers=self.__headers)
         if resp.status_code != 204:
-            return resp
-        if resp.text:
             return resp.json()
         return True
 
@@ -49,8 +47,6 @@ class GrocyApiClient(object):
         req_url = urljoin(self.__base_url, endpoint)
         resp = requests.put(req_url, verify=self.__verify_ssl, headers=up_header, data=json.dumps(data))
         if resp.status_code != 204:
-            return resp
-        if resp.text:
             return resp.json()
         return True
 

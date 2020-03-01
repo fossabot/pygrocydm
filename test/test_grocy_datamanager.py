@@ -51,3 +51,13 @@ class TestGrocyDataManager(TestCase):
         new_product['name'] = 'Test product'
         resp = product_list.add(new_product)
         assert "error_message" in resp.text
+
+    def test_edit_product_valid(self):
+        fields = {}
+        fields['name'] = 'Test'
+        assert self.gdm.products().list[0].edit(fields)
+
+    def test_edit_product_error(self):
+        fields = {}
+        fields['nam'] = 'Test'
+        assert "error_message" in self.gdm.products().list[0].edit(fields)
