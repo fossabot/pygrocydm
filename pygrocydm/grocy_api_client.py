@@ -1,10 +1,10 @@
 import json
-from urllib.parse import urljoin
 from typing import Tuple
-
-from .utils import parse_bool, parse_date, parse_float, parse_int
+from urllib.parse import urljoin
 
 import requests
+
+from .utils import parse_bool, parse_date, parse_float, parse_int
 
 DEFAULT_PORT_NUMBER = 9192
 
