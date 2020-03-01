@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from .battery import BATTERIES_ENDPOINT, Battery
 from .chore import CHORES_ENDPOINT, Chore
 from .grocy_api_client import (DEFAULT_PORT_NUMBER, GrocyApiClient,
                                GrocyEntityList)
@@ -21,4 +22,8 @@ class GrocyDataManager(object):
 
     def locations(self) -> GrocyEntityList:
         cls = Location
+        return GrocyEntityList(self.__api, cls, LOCATION_ENDPOINT)
+
+    def batteries(self) -> GrocyEntityList:
+        cls = Battery
         return GrocyEntityList(self.__api, cls, LOCATION_ENDPOINT)

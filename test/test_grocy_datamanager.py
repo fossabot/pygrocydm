@@ -3,6 +3,7 @@ from typing import List
 from unittest import TestCase
 
 from pygrocydm import GrocyDataManager
+from pygrocydm.battery import Battery
 from pygrocydm.chore import Chore
 from pygrocydm.location import Location
 from pygrocydm.product import Product
@@ -31,6 +32,20 @@ class TestGrocyDataManager(TestCase):
         assert len(chores) >=1
         for chore in chores:
             assert isinstance(chore, Chore)
+
+    def test_locations_valid(self):
+        locations = self.gdm.locations().list
+        assert isinstance(locations, tuple)
+        assert len(locations) >=1
+        for location in locations:
+            assert isinstance(location, Location)
+
+    def test_batteries_valid(self):
+        batteries = self.gdm.batteries().list
+        assert isinstance(batteries, tuple)
+        assert len(batteries) >=1
+        for battery in batteries:
+            assert isinstance(battery, Battery)
 
     def test_add_product_valid(self):
         product_list = self.gdm.products()
