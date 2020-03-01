@@ -30,4 +30,4 @@ script:
 after_success:
   - coveralls
   - docker-compose down
-  - doctr deploy --built-docs html/ .
+  - doctr deploy . --built-docs html/
