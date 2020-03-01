@@ -13,7 +13,7 @@ Import the package:
 from pygrocydm import GrocyDataManager
 ```
 
-Obtain a grocy instance:
+Obtain a grocy data manager instance:
 ```python
 gdm = GrocyDataManager("https://example.com", "GROCY_API_KEY")
 ```
@@ -22,3 +22,24 @@ or
 gdm = GrocyDataManager("https://example.com", "GROCY_API_KEY", port = 9192, verify_ssl = True)
 ```
 
+Product list :
+```python
+products = gdm.products()
+products_list = products.list
+for product in products_list:
+    print(vars(product))
+    if product.name == "Cookies":
+        product.delete()
+    if product.name == "Chocolate":
+        data = {}
+        data['name'] = "Choco"
+        product.edit(data)
+else:
+    new_product = {}
+    new_product['name'] = 'Cookies'
+    new_product['location_id'] = 1
+    new_product['qu_id_purchase'] = 1
+    new_product['qu_id_stock'] = 1
+    new_product['qu_factor_purchase_to_stock'] = 1
+    new_product_id = products.add(new_product)
+```
