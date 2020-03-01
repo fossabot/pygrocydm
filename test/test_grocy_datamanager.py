@@ -4,6 +4,7 @@ from unittest import TestCase
 
 from pygrocydm import GrocyDataManager
 from pygrocydm.chore import Chore
+from pygrocydm.location import Location
 from pygrocydm.product import Product
 
 
@@ -69,3 +70,10 @@ class TestGrocyDataManager(TestCase):
         self.gdm.products().refresh()
         new_len = len(self.gdm.products().list)
         assert new_len == old_len - 1
+
+    def test_locations_valid(self):
+        locations = self.gdm.locations().list
+        assert isinstance(locations, tuple)
+        assert len(locations) >=1
+        for location in locations:
+            assert isinstance(location, Location)
