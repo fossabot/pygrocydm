@@ -36,11 +36,18 @@ class TestGrocyDataManager(TestCase):
         old_len = len(product_list.list)
         new_product = {}
         new_product['name'] = 'Test product'
+        new_product['location_id'] = 1
         new_product['qu_id_purchase'] = 1
         new_product['qu_id_stock'] = 1
-        new_product['location_id'] = 1
         new_product['qu_factor_purchase_to_stock'] = 1
         new_product_id = product_list.add(new_product)
         new_len = len(product_list.list)
         assert isinstance(new_product_id, int)
         assert new_len == old_len + 1
+
+    def test_add_product_error(self):
+        product_list = self.gdm.products()
+        new_product = {}
+        new_product['name'] = 'Test product'
+        resp = product_list.add(new_product)
+        assert "error_message" in resp.text
