@@ -2,6 +2,8 @@ import json
 from urllib.parse import urljoin
 from typing import List
 
+from .utils import parse_bool, parse_date, parse_float, parse_int
+
 import requests
 
 DEFAULT_PORT_NUMBER = 9192
@@ -29,12 +31,7 @@ class GrocyApiClient(object):
 
     def post_request(self, endpoint: str, data={}):
         req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)
-        if resp.status_code != 200:
-            return resp
-        if resp.text:
-            return resp.json()
-        return True
+        return requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)
 
     def delete_request(self, endpoint: str):
         req_url = urljoin(self.__base_url, endpoint)
@@ -83,10 +80,11 @@ class GrocyEntityList(object):
         self.__list = [self.__cls(response, self.__api) for response in parsed_json]
 
     def add(self, item: dict):
-        response = self.__api.put_request(self.__endpoint, item)
-        if response:
+        resp = self.__api.post_request(self.__endpoint, item)
+        if resp.status_code == 200:
             self.refresh()
-        return response
+            return parse_int(resp.json().get('created_object_id'))
+        return resp
 
     @property
     def list(self) -> List[GrocyEntity]:

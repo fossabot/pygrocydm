@@ -5,7 +5,6 @@ from unittest import TestCase
 from pygrocydm import GrocyDataManager
 from pygrocydm.chore import Chore
 from pygrocydm.product import Product
-from pygrocydm.grocy_api_client import GrocyEntity
 
 
 class TestGrocyDataManager(TestCase):
@@ -18,16 +17,30 @@ class TestGrocyDataManager(TestCase):
     def test_init(self):
         assert isinstance(self.gdm, GrocyDataManager)
 
-    def test_products(self):
+    def test_products_valid(self):
         products = self.gdm.products().list
         assert isinstance(products, list)
         assert len(products) >=1
         for product in products:
             assert isinstance(product, Product)
 
-    def test_chores(self):
+    def test_chores_valid(self):
         chores = self.gdm.chores().list
         assert isinstance(chores, list)
         assert len(chores) >=1
         for chore in chores:
             assert isinstance(chore, Chore)
+
+    def test_add_product_valid(self):
+        product_list = self.gdm.products()
+        old_len = len(product_list.list)
+        new_product = {}
+        new_product['name'] = 'Test product'
+        new_product['qu_id_purchase'] = 1
+        new_product['qu_id_stock'] = 1
+        new_product['location_id'] = 1
+        new_product['qu_factor_purchase_to_stock'] = 1
+        new_product_id = product_list.add(new_product)
+        new_len = len(product_list.list)
+        assert isinstance(new_product_id, int)
+        assert new_len == old_len + 1
