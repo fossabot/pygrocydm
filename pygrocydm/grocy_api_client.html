@@ -25,12 +25,12 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import json
+from typing import Tuple
 from urllib.parse import urljoin
-from typing import List
-
-from .utils import parse_bool, parse_date, parse_float, parse_int
 
 import requests
+
+from .utils import parse_bool, parse_date, parse_float, parse_int
 
 DEFAULT_PORT_NUMBER = 9192
 
@@ -98,12 +98,12 @@ class GrocyEntityList(object):
         self.__api = api
         self.__cls = cls
         self.__endpoint = endpoint
-        self.__list = []
+        self.__list = None
         self.refresh()
 
     def refresh(self):
         parsed_json = self.__api.get_request(self.__endpoint)
-        self.__list = [self.__cls(response, self.__api) for response in parsed_json]
+        self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -113,7 +113,7 @@ class GrocyEntityList(object):
         return resp
 
     @property
-    def list(self) -&gt; List[GrocyEntity]:
+    def list(self) -&gt; Tuple[GrocyEntity]:
         return self.__list</code></pre>
 </details>
 </section>
@@ -328,12 +328,12 @@ class GrocyEntityList(object):
         self.__api = api
         self.__cls = cls
         self.__endpoint = endpoint
-        self.__list = []
+        self.__list = None
         self.refresh()
 
     def refresh(self):
         parsed_json = self.__api.get_request(self.__endpoint)
-        self.__list = [self.__cls(response, self.__api) for response in parsed_json]
+        self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -343,7 +343,7 @@ class GrocyEntityList(object):
         return resp
 
     @property
-    def list(self) -&gt; List[GrocyEntity]:
+    def list(self) -&gt; Tuple[GrocyEntity]:
         return self.__list</code></pre>
 </details>
 <h3>Instance variables</h3>
@@ -356,7 +356,7 @@ class GrocyEntityList(object):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def list(self) -&gt; List[GrocyEntity]:
+def list(self) -&gt; Tuple[GrocyEntity]:
     return self.__list</code></pre>
 </details>
 </dd>
@@ -391,7 +391,7 @@ def list(self) -&gt; List[GrocyEntity]:
 </summary>
 <pre><code class="python">def refresh(self):
     parsed_json = self.__api.get_request(self.__endpoint)
-    self.__list = [self.__cls(response, self.__api) for response in parsed_json]</code></pre>
+    self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])</code></pre>
 </details>
 </dd>
 </dl>
