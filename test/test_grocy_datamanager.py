@@ -55,9 +55,17 @@ class TestGrocyDataManager(TestCase):
     def test_edit_product_valid(self):
         fields = {}
         fields['name'] = 'Test'
-        assert self.gdm.products().list[0].edit(fields)
+        assert self.gdm.products().list[-1].edit(fields)
 
     def test_edit_product_error(self):
         fields = {}
         fields['nam'] = 'Test'
         assert "error_message" in self.gdm.products().list[0].edit(fields)
+
+    def test_product_delete_valid(self):
+        product = self.gdm.products().list[-1]
+        old_len = len(self.gdm.products().list)
+        assert product.delete()
+        self.gdm.products().refresh()
+        new_len = len(self.gdm.products().list)
+        assert new_len == old_len - 1
