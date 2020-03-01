@@ -1,5 +1,5 @@
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL, SKIP_REAL
-from typing import List, Type
+from typing import List
 from unittest import TestCase
 
 from pygrocydm import GrocyDataManager
@@ -19,14 +19,14 @@ class TestGrocyDataManager(TestCase):
 
     def test_products_valid(self):
         products = self.gdm.products().list
-        assert isinstance(products, list)
+        assert isinstance(products, tuple)
         assert len(products) >=1
         for product in products:
             assert isinstance(product, Product)
 
     def test_chores_valid(self):
         chores = self.gdm.chores().list
-        assert isinstance(chores, list)
+        assert isinstance(chores, tuple)
         assert len(chores) >=1
         for chore in chores:
             assert isinstance(chore, Chore)

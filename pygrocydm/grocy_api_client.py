@@ -1,6 +1,6 @@
 import json
 from urllib.parse import urljoin
-from typing import List
+from typing import Tuple
 
 from .utils import parse_bool, parse_date, parse_float, parse_int
 
@@ -72,12 +72,12 @@ class GrocyEntityList(object):
         self.__api = api
         self.__cls = cls
         self.__endpoint = endpoint
-        self.__list = []
+        self.__list = None
         self.refresh()
 
     def refresh(self):
         parsed_json = self.__api.get_request(self.__endpoint)
-        self.__list = [self.__cls(response, self.__api) for response in parsed_json]
+        self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -87,5 +87,5 @@ class GrocyEntityList(object):
         return resp
 
     @property
-    def list(self) -> List[GrocyEntity]:
+    def list(self) -> Tuple[GrocyEntity]:
         return self.__list
