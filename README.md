@@ -8,6 +8,17 @@
 
 `pip install pygrocydm`
 
+## Managed Entities (WIP)
+
+- products
+- chores
+- locations
+- batteries
+- shopping_list
+- shopping_lists
+
+Check [Grocy API](https://demo.grocy.info/api#/Generic%20entity%20interactions)
+
 ## Usage
 Import the package: 
 ```python
