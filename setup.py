@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pygrocydm",
-    version="0.1.0",
+    version="0.2.0",
     author="Blueblueblob",
     description="",
     long_description=long_description,
