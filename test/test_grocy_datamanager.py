@@ -7,6 +7,7 @@ from pygrocydm.battery import Battery
 from pygrocydm.chore import Chore
 from pygrocydm.location import Location
 from pygrocydm.product import Product
+from pygrocydm.shopping_list import ShoppingList, ShoppingListItem
 
 
 class TestGrocyDataManager(TestCase):
@@ -46,6 +47,20 @@ class TestGrocyDataManager(TestCase):
         assert len(batteries) >=1
         for battery in batteries:
             assert isinstance(battery, Battery)
+
+    def test_shopping_list_items_valid(self):
+        shopping_list_items = self.gdm.shopping_list().list
+        assert isinstance(shopping_list_items, tuple)
+        assert len(shopping_list_items) >=1
+        for items in shopping_list_items:
+            assert isinstance(items, ShoppingListItem)
+
+    def test_shopping_lists_valid(self):
+        shopping_lists = self.gdm.shopping_lists().list
+        assert isinstance(shopping_lists, tuple)
+        assert len(shopping_lists) >=1
+        for shopping_list in shopping_lists:
+            assert isinstance(shopping_list, ShoppingList)
 
     def test_add_product_valid(self):
         product_list = self.gdm.products()
