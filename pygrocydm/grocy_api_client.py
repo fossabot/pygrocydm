@@ -26,7 +26,7 @@ class GrocyApiClient(object):
         req_url = urljoin(self.__base_url, endpoint)
         resp = requests.get(req_url, verify=self.__verify_ssl, headers=self.__headers)
         if resp.status_code != 200:
-            return resp
+            return None
         return resp.json()
 
     def post_request(self, endpoint: str, data={}):
@@ -73,7 +73,8 @@ class GrocyEntityList(object):
 
     def refresh(self):
         parsed_json = self.__api.get_request(self.__endpoint)
-        self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])
+        if parsed_json:
+            self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)

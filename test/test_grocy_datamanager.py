@@ -1,6 +1,7 @@
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL, SKIP_REAL
 from typing import List
 from unittest import TestCase
+import responses
 
 from pygrocydm import GrocyDataManager
 from pygrocydm.battery import Battery
@@ -26,6 +27,24 @@ class TestGrocyDataManager(TestCase):
         assert len(products) >=1
         for product in products:
             assert isinstance(product, Product)
+
+    @responses.activate
+    def test_products_invalid_no_data(self):
+        resp = []
+        responses.add(responses.GET,
+            '{}:{}/api/objects/products'.format(CONST_BASE_URL, CONST_PORT),
+            json=resp,
+            status=200)
+        products = self.gdm.products().list
+        assert products is None
+
+    @responses.activate
+    def test_products_error(self):
+        responses.add(responses.GET,
+            '{}:{}/api/objects/products'.format(CONST_BASE_URL, CONST_PORT),
+            status=400)
+        products = self.gdm.products().list
+        assert products is None
 
     def test_chores_valid(self):
         chores = self.gdm.chores().list
@@ -100,6 +119,11 @@ class TestGrocyDataManager(TestCase):
         self.gdm.products().refresh()
         new_len = len(self.gdm.products().list)
         assert new_len == old_len - 1
+
+    def test_product_delete_error(self):
+        product = self.gdm.products().list[-1]
+        product.delete()
+        assert 'error' in product.delete()
 
     def test_locations_valid(self):
         locations = self.gdm.locations().list
