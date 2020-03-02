@@ -19,6 +19,10 @@
 
 Check [Grocy API](https://demo.grocy.info/api#/Generic%20entity%20interactions)
 
+## Documentation
+
+https://blueblueblob.github.io/pygrocydm/
+
 ## Usage
 Import the package: 
 ```python
