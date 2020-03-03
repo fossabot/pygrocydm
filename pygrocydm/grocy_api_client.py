@@ -29,7 +29,7 @@ class GrocyApiClient(object):
             return None
         return resp.json()
 
-    def post_request(self, endpoint: str, data={}):
+    def post_request(self, endpoint: str, data: dict):
         req_url = urljoin(self.__base_url, endpoint)
         return requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)
 
@@ -40,7 +40,7 @@ class GrocyApiClient(object):
             return resp.json()
         return True
 
-    def put_request(self, endpoint: str, data={}):
+    def put_request(self, endpoint: str, data: dict):
         up_header = self.__headers.copy()
         up_header['accept'] = '*/*'
         up_header['Content-Type'] = 'application/json'
