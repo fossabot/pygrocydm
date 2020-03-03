@@ -31,10 +31,12 @@ class Product(GrocyEntity):
         self.__min_stock_amount = parse_int(
             parsed_json.get('min_stock_amount', None),
             0)
-        self.__default_best_before_days = parse_int(parsed_json.get('default_best_before_days', None))
+        self.__default_best_before_days = parse_int(
+            parsed_json.get('default_best_before_days', None))
         self.__default_best_before_days_after_open = parse_int(
             parsed_json.get('default_best_before_days_after_open',
-            None))
+            None)
+            )
         self.__picture_file_name = parsed_json.get('picture_file_name', None)
         self.__allow_partial_units_in_stock = parse_bool(
             parsed_json.get('allow_partial_units_in_stock',False),
