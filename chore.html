@@ -28,24 +28,24 @@
 from enum import Enum
 
 from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_bool, parse_date, parse_float, parse_int
+from .utils import parse_bool, parse_date, parse_int
 
 CHORES_ENDPOINT = &#39;objects/chores&#39;
 
 
 class PeriodType(Enum):
-        MANUALLY = &#34;manually&#34;
-        DYNAMIC_REGULAR = &#34;dynamic-regular&#34;
-        DAILY = &#34;daily&#34;
-        WEEKLY = &#34;weekly&#34;
-        MONTHLY = &#34;monthly&#34;
+    MANUALLY = &#34;manually&#34;
+    DYNAMIC_REGULAR = &#34;dynamic-regular&#34;
+    DAILY = &#34;daily&#34;
+    WEEKLY = &#34;weekly&#34;
+    MONTHLY = &#34;monthly&#34;
 
 
 class AssignmentType(Enum):
-        NO_ASSIGNMENT = &#34;no-assignment&#34;
-        WHO_LEAST_DID_FIRST = &#34;who-least-did-first&#34;
-        RANDOM = &#34;random&#34;
-        IN_ALPHABETICAL_ORDER = &#34;in-alphabetical-order&#34;
+    NO_ASSIGNMENT = &#34;no-assignment&#34;
+    WHO_LEAST_DID_FIRST = &#34;who-least-did-first&#34;
+    RANDOM = &#34;random&#34;
+    IN_ALPHABETICAL_ORDER = &#34;in-alphabetical-order&#34;
 
 
 class Chore(GrocyEntity):
@@ -134,10 +134,10 @@ class Chore(GrocyEntity):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class AssignmentType(Enum):
-        NO_ASSIGNMENT = &#34;no-assignment&#34;
-        WHO_LEAST_DID_FIRST = &#34;who-least-did-first&#34;
-        RANDOM = &#34;random&#34;
-        IN_ALPHABETICAL_ORDER = &#34;in-alphabetical-order&#34;</code></pre>
+    NO_ASSIGNMENT = &#34;no-assignment&#34;
+    WHO_LEAST_DID_FIRST = &#34;who-least-did-first&#34;
+    RANDOM = &#34;random&#34;
+    IN_ALPHABETICAL_ORDER = &#34;in-alphabetical-order&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -401,11 +401,11 @@ def track_date_only(self) -&gt; bool:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class PeriodType(Enum):
-        MANUALLY = &#34;manually&#34;
-        DYNAMIC_REGULAR = &#34;dynamic-regular&#34;
-        DAILY = &#34;daily&#34;
-        WEEKLY = &#34;weekly&#34;
-        MONTHLY = &#34;monthly&#34;</code></pre>
+    MANUALLY = &#34;manually&#34;
+    DYNAMIC_REGULAR = &#34;dynamic-regular&#34;
+    DAILY = &#34;daily&#34;
+    WEEKLY = &#34;weekly&#34;
+    MONTHLY = &#34;monthly&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
