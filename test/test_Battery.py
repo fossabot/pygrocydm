@@ -1,10 +1,8 @@
 import json
 from datetime import datetime
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
-from typing import List
 from unittest import TestCase
 
-import responses
 
 from pygrocydm.battery import BATTERIES_ENDPOINT, Battery
 from pygrocydm.grocy_api_client import GrocyApiClient

@@ -2,24 +2,24 @@ from datetime import datetime
 from enum import Enum
 
 from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_bool, parse_date, parse_float, parse_int
+from .utils import parse_bool, parse_date, parse_int
 
 CHORES_ENDPOINT = 'objects/chores'
 
 
 class PeriodType(Enum):
-	MANUALLY = "manually"
-	DYNAMIC_REGULAR = "dynamic-regular"
-	DAILY = "daily"
-	WEEKLY = "weekly"
-	MONTHLY = "monthly"
+    MANUALLY = "manually"
+    DYNAMIC_REGULAR = "dynamic-regular"
+    DAILY = "daily"
+    WEEKLY = "weekly"
+    MONTHLY = "monthly"
 
 
 class AssignmentType(Enum):
-	NO_ASSIGNMENT = "no-assignment"
-	WHO_LEAST_DID_FIRST = "who-least-did-first"
-	RANDOM = "random"
-	IN_ALPHABETICAL_ORDER = "in-alphabetical-order"
+    NO_ASSIGNMENT = "no-assignment"
+    WHO_LEAST_DID_FIRST = "who-least-did-first"
+    RANDOM = "random"
+    IN_ALPHABETICAL_ORDER = "in-alphabetical-order"
 
 
 class Chore(GrocyEntity):

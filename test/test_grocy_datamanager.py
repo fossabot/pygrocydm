@@ -1,4 +1,4 @@
-from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL, SKIP_REAL
+from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
 from typing import List
 from unittest import TestCase
 import responses

@@ -4,12 +4,12 @@ from urllib.parse import urljoin
 
 import requests
 
-from .utils import parse_bool, parse_date, parse_float, parse_int
+from .utils import parse_bool, parse_int
 
 DEFAULT_PORT_NUMBER = 9192
 
 
-class GrocyApiClient(object):
+class GrocyApiClient():
     def __init__(self, base_url, api_key, port: int = DEFAULT_PORT_NUMBER, verify_ssl=True):
         self.__base_url = '{}:{}/api/'.format(base_url, port)
         self.__api_key = api_key
@@ -51,7 +51,7 @@ class GrocyApiClient(object):
         return True
 
 
-class GrocyEntity(object):
+class GrocyEntity():
     def __init__(self, api: GrocyApiClient, endpoint: str):
         self.__api = api
         self.__endpoint = endpoint
@@ -63,7 +63,7 @@ class GrocyEntity(object):
         return self.__api.delete_request(self.__endpoint)
 
 
-class GrocyEntityList(object):
+class GrocyEntityList():
     def __init__(self, api: GrocyApiClient, cls, endpoint: str):
         self.__api = api
         self.__cls = cls

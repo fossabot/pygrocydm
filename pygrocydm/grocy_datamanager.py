@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from .battery import BATTERIES_ENDPOINT, Battery
 from .chore import CHORES_ENDPOINT, Chore
 from .grocy_api_client import (DEFAULT_PORT_NUMBER, GrocyApiClient,
@@ -9,7 +7,7 @@ from .product import PRODUCTS_ENDPOINT, Product
 from .shopping_list import SHOPPING_LIST_ENDPOINT, SHOPPING_LISTS_ENDPOINT, ShoppingList, ShoppingListItem
 
 
-class GrocyDataManager(object):
+class GrocyDataManager():
     def __init__(self, base_url, api_key, port: int = DEFAULT_PORT_NUMBER, verify_ssl=True):
         self.__api = GrocyApiClient(base_url, api_key, port, verify_ssl)
 
@@ -27,7 +25,7 @@ class GrocyDataManager(object):
 
     def batteries(self) -> GrocyEntityList:
         cls = Battery
-        return GrocyEntityList(self.__api, cls, LOCATION_ENDPOINT)
+        return GrocyEntityList(self.__api, cls, BATTERIES_ENDPOINT)
 
     def shopping_list(self) -> GrocyEntityList:
         cls = ShoppingListItem

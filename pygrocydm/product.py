@@ -2,9 +2,10 @@ from datetime import datetime
 from typing import List
 
 from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_bool, parse_date, parse_float, parse_int
+from .utils import parse_date, parse_float, parse_int
 
 PRODUCTS_ENDPOINT = 'objects/products'
+
 
 class Product(GrocyEntity):
     def __init__(self, parsed_json, api: GrocyApiClient):
