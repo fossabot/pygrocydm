@@ -38,8 +38,11 @@ class Battery(GrocyEntity):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__used_in = parsed_json.get(&#39;used_in&#39;, None)
-        self.__charge_interval_days = parse_int(parsed_json.get(&#39;charge_interval_days&#39;), 0)
-        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__charge_interval_days = parse_int(
+            parsed_json.get(&#39;charge_interval_days&#39;),
+            0)
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(BATTERIES_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 
@@ -93,8 +96,11 @@ class Battery(GrocyEntity):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__used_in = parsed_json.get(&#39;used_in&#39;, None)
-        self.__charge_interval_days = parse_int(parsed_json.get(&#39;charge_interval_days&#39;), 0)
-        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__charge_interval_days = parse_int(
+            parsed_json.get(&#39;charge_interval_days&#39;),
+            0)
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(BATTERIES_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 

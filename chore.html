@@ -60,8 +60,11 @@ class Chore(GrocyEntity):
         self.__rollover = parse_bool(parsed_json.get(&#39;rollover&#39;), False)
         self.__assignment_type = parsed_json.get(&#39;assignment_type&#39;, None)
         self.__assignment_config = parsed_json.get(&#39;assignment_config&#39;, None)
-        self.__next_execution_assigned_to_user_id = parse_int(parsed_json.get(&#39;next_execution_assigned_to_user_id&#39;), None)
-        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__next_execution_assigned_to_user_id = parse_int(
+            parsed_json.get(&#39;next_execution_assigned_to_user_id&#39;),
+            None)
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(CHORES_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 
@@ -185,8 +188,11 @@ class Chore(GrocyEntity):
         self.__rollover = parse_bool(parsed_json.get(&#39;rollover&#39;), False)
         self.__assignment_type = parsed_json.get(&#39;assignment_type&#39;, None)
         self.__assignment_config = parsed_json.get(&#39;assignment_config&#39;, None)
-        self.__next_execution_assigned_to_user_id = parse_int(parsed_json.get(&#39;next_execution_assigned_to_user_id&#39;), None)
-        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__next_execution_assigned_to_user_id = parse_int(
+            parsed_json.get(&#39;next_execution_assigned_to_user_id&#39;),
+            None)
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(CHORES_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 

@@ -38,7 +38,8 @@ class Location(GrocyEntity):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__is_freezer = parse_bool(parsed_json.get(&#39;is_freezer&#39;), False)
-        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(LOCATION_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 
@@ -88,7 +89,8 @@ class Location(GrocyEntity):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__is_freezer = parse_bool(parsed_json.get(&#39;is_freezer&#39;), False)
-        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(LOCATION_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 

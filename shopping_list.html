@@ -38,7 +38,8 @@ class ShoppingList(GrocyEntity):
         self.__id = parse_int(parsed_json.get(&#39;id&#39;))
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
-        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(SHOPPING_LISTS_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 
@@ -124,7 +125,8 @@ class ShoppingListItem(GrocyEntity):
         self.__id = parse_int(parsed_json.get(&#39;id&#39;))
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
-        self.__row_created_timestamp = parse_date(parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(SHOPPING_LISTS_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 

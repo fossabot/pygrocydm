@@ -36,7 +36,10 @@ DEFAULT_PORT_NUMBER = 9192
 
 
 class GrocyApiClient():
-    def __init__(self, base_url, api_key, port: int = DEFAULT_PORT_NUMBER, verify_ssl=True):
+    def __init__(self,
+                base_url, api_key,
+                port: int = DEFAULT_PORT_NUMBER,
+                verify_ssl=True):
         self.__base_url = &#39;{}:{}/api/&#39;.format(base_url, port)
         self.__api_key = api_key
         self.__verify_ssl = verify_ssl
@@ -57,11 +60,16 @@ class GrocyApiClient():
 
     def post_request(self, endpoint: str, data: dict):
         req_url = urljoin(self.__base_url, endpoint)
-        return requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)
+        return requests.post(req_url,
+                verify=self.__verify_ssl,
+                headers=self.__headers,
+                data=data)
 
     def delete_request(self, endpoint: str):
         req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.delete(req_url, verify=self.__verify_ssl, headers=self.__headers)
+        resp = requests.delete(req_url,
+                verify=self.__verify_ssl,
+                headers=self.__headers)
         if resp.status_code != 204:
             return resp.json()
         return True
@@ -71,7 +79,10 @@ class GrocyApiClient():
         up_header[&#39;accept&#39;] = &#39;*/*&#39;
         up_header[&#39;Content-Type&#39;] = &#39;application/json&#39;
         req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.put(req_url, verify=self.__verify_ssl, headers=up_header, data=json.dumps(data))
+        resp = requests.put(req_url,
+                verify=self.__verify_ssl,
+                headers=up_header,
+                data=json.dumps(data))
         if resp.status_code != 204:
             return resp.json()
         return True
@@ -100,7 +111,8 @@ class GrocyEntityList():
     def refresh(self):
         parsed_json = self.__api.get_request(self.__endpoint)
         if parsed_json:
-            self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])
+            self.__list = tuple(
+                [self.__cls(response, self.__api) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -134,7 +146,10 @@ class GrocyEntityList():
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class GrocyApiClient():
-    def __init__(self, base_url, api_key, port: int = DEFAULT_PORT_NUMBER, verify_ssl=True):
+    def __init__(self,
+                base_url, api_key,
+                port: int = DEFAULT_PORT_NUMBER,
+                verify_ssl=True):
         self.__base_url = &#39;{}:{}/api/&#39;.format(base_url, port)
         self.__api_key = api_key
         self.__verify_ssl = verify_ssl
@@ -155,11 +170,16 @@ class GrocyEntityList():
 
     def post_request(self, endpoint: str, data: dict):
         req_url = urljoin(self.__base_url, endpoint)
-        return requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)
+        return requests.post(req_url,
+                verify=self.__verify_ssl,
+                headers=self.__headers,
+                data=data)
 
     def delete_request(self, endpoint: str):
         req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.delete(req_url, verify=self.__verify_ssl, headers=self.__headers)
+        resp = requests.delete(req_url,
+                verify=self.__verify_ssl,
+                headers=self.__headers)
         if resp.status_code != 204:
             return resp.json()
         return True
@@ -169,7 +189,10 @@ class GrocyEntityList():
         up_header[&#39;accept&#39;] = &#39;*/*&#39;
         up_header[&#39;Content-Type&#39;] = &#39;application/json&#39;
         req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.put(req_url, verify=self.__verify_ssl, headers=up_header, data=json.dumps(data))
+        resp = requests.put(req_url,
+                verify=self.__verify_ssl,
+                headers=up_header,
+                data=json.dumps(data))
         if resp.status_code != 204:
             return resp.json()
         return True</code></pre>
@@ -187,7 +210,9 @@ class GrocyEntityList():
 </summary>
 <pre><code class="python">def delete_request(self, endpoint: str):
     req_url = urljoin(self.__base_url, endpoint)
-    resp = requests.delete(req_url, verify=self.__verify_ssl, headers=self.__headers)
+    resp = requests.delete(req_url,
+            verify=self.__verify_ssl,
+            headers=self.__headers)
     if resp.status_code != 204:
         return resp.json()
     return True</code></pre>
@@ -221,7 +246,10 @@ class GrocyEntityList():
 </summary>
 <pre><code class="python">def post_request(self, endpoint: str, data: dict):
     req_url = urljoin(self.__base_url, endpoint)
-    return requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)</code></pre>
+    return requests.post(req_url,
+            verify=self.__verify_ssl,
+            headers=self.__headers,
+            data=data)</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyApiClient.put_request"><code class="name flex">
@@ -238,7 +266,10 @@ class GrocyEntityList():
     up_header[&#39;accept&#39;] = &#39;*/*&#39;
     up_header[&#39;Content-Type&#39;] = &#39;application/json&#39;
     req_url = urljoin(self.__base_url, endpoint)
-    resp = requests.put(req_url, verify=self.__verify_ssl, headers=up_header, data=json.dumps(data))
+    resp = requests.put(req_url,
+            verify=self.__verify_ssl,
+            headers=up_header,
+            data=json.dumps(data))
     if resp.status_code != 204:
         return resp.json()
     return True</code></pre>
@@ -327,7 +358,8 @@ class GrocyEntityList():
     def refresh(self):
         parsed_json = self.__api.get_request(self.__endpoint)
         if parsed_json:
-            self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])
+            self.__list = tuple(
+                [self.__cls(response, self.__api) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -386,7 +418,8 @@ def list(self) -&gt; Tuple[GrocyEntity]:
 <pre><code class="python">def refresh(self):
     parsed_json = self.__api.get_request(self.__endpoint)
     if parsed_json:
-        self.__list = tuple([self.__cls(response, self.__api) for response in parsed_json])</code></pre>
+        self.__list = tuple(
+            [self.__cls(response, self.__api) for response in parsed_json])</code></pre>
 </details>
 </dd>
 </dl>
