@@ -55,7 +55,7 @@ class GrocyApiClient(object):
             return None
         return resp.json()
 
-    def post_request(self, endpoint: str, data={}):
+    def post_request(self, endpoint: str, data: dict):
         req_url = urljoin(self.__base_url, endpoint)
         return requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)
 
@@ -66,7 +66,7 @@ class GrocyApiClient(object):
             return resp.json()
         return True
 
-    def put_request(self, endpoint: str, data={}):
+    def put_request(self, endpoint: str, data: dict):
         up_header = self.__headers.copy()
         up_header[&#39;accept&#39;] = &#39;*/*&#39;
         up_header[&#39;Content-Type&#39;] = &#39;application/json&#39;
@@ -153,7 +153,7 @@ class GrocyEntityList(object):
             return None
         return resp.json()
 
-    def post_request(self, endpoint: str, data={}):
+    def post_request(self, endpoint: str, data: dict):
         req_url = urljoin(self.__base_url, endpoint)
         return requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)
 
@@ -164,7 +164,7 @@ class GrocyEntityList(object):
             return resp.json()
         return True
 
-    def put_request(self, endpoint: str, data={}):
+    def put_request(self, endpoint: str, data: dict):
         up_header = self.__headers.copy()
         up_header[&#39;accept&#39;] = &#39;*/*&#39;
         up_header[&#39;Content-Type&#39;] = &#39;application/json&#39;
@@ -211,7 +211,7 @@ class GrocyEntityList(object):
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyApiClient.post_request"><code class="name flex">
-<span>def <span class="ident">post_request</span></span>(<span>self, endpoint, data={})</span>
+<span>def <span class="ident">post_request</span></span>(<span>self, endpoint, data)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -219,13 +219,13 @@ class GrocyEntityList(object):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def post_request(self, endpoint: str, data={}):
+<pre><code class="python">def post_request(self, endpoint: str, data: dict):
     req_url = urljoin(self.__base_url, endpoint)
     return requests.post(req_url, verify=self.__verify_ssl, headers=self.__headers, data=data)</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyApiClient.put_request"><code class="name flex">
-<span>def <span class="ident">put_request</span></span>(<span>self, endpoint, data={})</span>
+<span>def <span class="ident">put_request</span></span>(<span>self, endpoint, data)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -233,7 +233,7 @@ class GrocyEntityList(object):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def put_request(self, endpoint: str, data={}):
+<pre><code class="python">def put_request(self, endpoint: str, data: dict):
     up_header = self.__headers.copy()
     up_header[&#39;accept&#39;] = &#39;*/*&#39;
     up_header[&#39;Content-Type&#39;] = &#39;application/json&#39;
