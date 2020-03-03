@@ -1,5 +1,6 @@
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
 from unittest import TestCase
+
 import responses
 
 from pygrocydm import GrocyDataManager

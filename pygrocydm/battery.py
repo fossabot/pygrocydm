@@ -12,8 +12,11 @@ class Battery(GrocyEntity):
         self.__name = parsed_json.get('name')
         self.__description = parsed_json.get('description', None)
         self.__used_in = parsed_json.get('used_in', None)
-        self.__charge_interval_days = parse_int(parsed_json.get('charge_interval_days'), 0)
-        self.__row_created_timestamp = parse_date(parsed_json.get('row_created_timestamp'))
+        self.__charge_interval_days = parse_int(
+            parsed_json.get('charge_interval_days'),
+            0)
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get('row_created_timestamp'))
         self.__endpoint = '{}/{}'.format(BATTERIES_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 

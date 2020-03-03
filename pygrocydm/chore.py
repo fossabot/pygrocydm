@@ -34,8 +34,11 @@ class Chore(GrocyEntity):
         self.__rollover = parse_bool(parsed_json.get('rollover'), False)
         self.__assignment_type = parsed_json.get('assignment_type', None)
         self.__assignment_config = parsed_json.get('assignment_config', None)
-        self.__next_execution_assigned_to_user_id = parse_int(parsed_json.get('next_execution_assigned_to_user_id'), None)
-        self.__row_created_timestamp = parse_date(parsed_json.get('row_created_timestamp'))
+        self.__next_execution_assigned_to_user_id = parse_int(
+            parsed_json.get('next_execution_assigned_to_user_id'),
+            None)
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get('row_created_timestamp'))
         self.__endpoint = '{}/{}'.format(CHORES_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 

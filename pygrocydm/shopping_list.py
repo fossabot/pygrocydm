@@ -12,7 +12,8 @@ class ShoppingList(GrocyEntity):
         self.__id = parse_int(parsed_json.get('id'))
         self.__name = parsed_json.get('name')
         self.__description = parsed_json.get('description', None)
-        self.__row_created_timestamp = parse_date(parsed_json.get('row_created_timestamp'))
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get('row_created_timestamp'))
         self.__endpoint = '{}/{}'.format(SHOPPING_LISTS_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 

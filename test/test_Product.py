@@ -62,5 +62,5 @@ class TestProduct(TestCase):
         assert isinstance(product.default_best_before_days, int) or product.default_best_before_days is None
         assert isinstance(product.default_best_before_days_after_open, int) or product.default_best_before_days_after_open is None
         assert isinstance(product.picture_file_name, str) or product.picture_file_name is None
-        assert isinstance(product.allow_partial_units_in_stock, int) or not product.allow_partial_units_in_stock
+        assert isinstance(product.allow_partial_units_in_stock, bool)
         assert isinstance(product.row_created_timestamp, datetime)
