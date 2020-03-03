@@ -16,3 +16,4 @@ dependency_file_paths = [ "requirements-dev.txt" ]
 [[analyzers]]
 name = "test-coverage"
 enabled = true
+
