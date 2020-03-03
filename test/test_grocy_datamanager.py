@@ -1,5 +1,4 @@
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
-from typing import List
 from unittest import TestCase
 import responses
 
@@ -124,10 +123,3 @@ class TestGrocyDataManager(TestCase):
         product = self.gdm.products().list[-1]
         product.delete()
         assert 'error' in product.delete()
-
-    def test_locations_valid(self):
-        locations = self.gdm.locations().list
-        assert isinstance(locations, tuple)
-        assert len(locations) >=1
-        for location in locations:
-            assert isinstance(location, Location)

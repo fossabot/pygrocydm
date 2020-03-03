@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 
 import requests
 
-from .utils import parse_bool, parse_int
+from .utils import parse_int
 
 DEFAULT_PORT_NUMBER = 9192
 
