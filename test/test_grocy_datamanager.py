@@ -145,4 +145,3 @@ class TestGrocyDataManager(TestCase):
             status=400)
         products = self.gdm.products().search("error")
         assert products is None
-
