@@ -45,7 +45,8 @@ class Product(GrocyEntity):
             parsed_json.get(&#39;enable_tare_weight_handling&#39;, None))
         self.__not_check_stock_fulfillment_for_recipes = parse_int(
             parsed_json.get(&#39;not_check_stock_fulfillment_for_recipes&#39;), None)
-        self.__product_group_id = parse_int(parsed_json.get(&#39;product_group_id&#39;), None)
+        self.__product_group_id = parse_int(
+            parsed_json.get(&#39;product_group_id&#39;), None)
         self.__qu_factor_purchase_to_stock = parse_float(
             parsed_json.get(&#39;qu_factor_purchase_to_stock&#39;))
         self.__tare_weight = parse_float(parsed_json.get(&#39;tare_weight&#39;, None))
@@ -60,8 +61,7 @@ class Product(GrocyEntity):
         self.__default_best_before_days = parse_int(
             parsed_json.get(&#39;default_best_before_days&#39;, None))
         self.__default_best_before_days_after_open = parse_int(
-            parsed_json.get(&#39;default_best_before_days_after_open&#39;,
-            None))
+            parsed_json.get(&#39;default_best_before_days_after_open&#39;, None))
         self.__picture_file_name = parsed_json.get(&#39;picture_file_name&#39;, None)
         self.__allow_partial_units_in_stock = parse_bool(
             parsed_json.get(&#39;allow_partial_units_in_stock&#39;, False),
@@ -175,7 +175,8 @@ class Product(GrocyEntity):
             parsed_json.get(&#39;enable_tare_weight_handling&#39;, None))
         self.__not_check_stock_fulfillment_for_recipes = parse_int(
             parsed_json.get(&#39;not_check_stock_fulfillment_for_recipes&#39;), None)
-        self.__product_group_id = parse_int(parsed_json.get(&#39;product_group_id&#39;), None)
+        self.__product_group_id = parse_int(
+            parsed_json.get(&#39;product_group_id&#39;), None)
         self.__qu_factor_purchase_to_stock = parse_float(
             parsed_json.get(&#39;qu_factor_purchase_to_stock&#39;))
         self.__tare_weight = parse_float(parsed_json.get(&#39;tare_weight&#39;, None))
@@ -190,8 +191,7 @@ class Product(GrocyEntity):
         self.__default_best_before_days = parse_int(
             parsed_json.get(&#39;default_best_before_days&#39;, None))
         self.__default_best_before_days_after_open = parse_int(
-            parsed_json.get(&#39;default_best_before_days_after_open&#39;,
-            None))
+            parsed_json.get(&#39;default_best_before_days_after_open&#39;, None))
         self.__picture_file_name = parsed_json.get(&#39;picture_file_name&#39;, None)
         self.__allow_partial_units_in_stock = parse_bool(
             parsed_json.get(&#39;allow_partial_units_in_stock&#39;, False),

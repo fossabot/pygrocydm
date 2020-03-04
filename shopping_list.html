@@ -66,7 +66,8 @@ class ShoppingListItem(GrocyEntity):
         self.__product_id = parse_int(parsed_json.get(&#39;product_id&#39;), None)
         self.__note = parsed_json.get(&#39;note&#39;, None)
         self.__amount = parse_float(parsed_json.get(&#39;amount&#39;), 0)
-        self.__shopping_list_id = parse_int(parsed_json.get(&#39;shopping_list_id&#39;))
+        self.__shopping_list_id = parse_int(
+            parsed_json.get(&#39;shopping_list_id&#39;))
         self.__done = parse_bool(parsed_json.get(&#39;done&#39;), False)
         self.__row_created_timestamp = parse_date(
             parsed_json.get(&#39;row_created_timestamp&#39;))
@@ -219,7 +220,8 @@ def row_created_timestamp(self) -&gt; datetime:
         self.__product_id = parse_int(parsed_json.get(&#39;product_id&#39;), None)
         self.__note = parsed_json.get(&#39;note&#39;, None)
         self.__amount = parse_float(parsed_json.get(&#39;amount&#39;), 0)
-        self.__shopping_list_id = parse_int(parsed_json.get(&#39;shopping_list_id&#39;))
+        self.__shopping_list_id = parse_int(
+            parsed_json.get(&#39;shopping_list_id&#39;))
         self.__done = parse_bool(parsed_json.get(&#39;done&#39;), False)
         self.__row_created_timestamp = parse_date(
             parsed_json.get(&#39;row_created_timestamp&#39;))

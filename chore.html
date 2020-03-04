@@ -56,7 +56,8 @@ class Chore(GrocyEntity):
         self.__period_type = parsed_json.get(&#39;period_type&#39;)
         self.__period_config = parsed_json.get(&#39;period_config&#39;, None)
         self.__period_days = parse_int(parsed_json.get(&#39;period_days&#39;), None)
-        self.__track_date_only = parse_bool(parsed_json.get(&#39;track_date_only&#39;), False)
+        self.__track_date_only = parse_bool(
+            parsed_json.get(&#39;track_date_only&#39;), False)
         self.__rollover = parse_bool(parsed_json.get(&#39;rollover&#39;), False)
         self.__assignment_type = parsed_json.get(&#39;assignment_type&#39;, None)
         self.__assignment_config = parsed_json.get(&#39;assignment_config&#39;, None)
@@ -184,7 +185,8 @@ class Chore(GrocyEntity):
         self.__period_type = parsed_json.get(&#39;period_type&#39;)
         self.__period_config = parsed_json.get(&#39;period_config&#39;, None)
         self.__period_days = parse_int(parsed_json.get(&#39;period_days&#39;), None)
-        self.__track_date_only = parse_bool(parsed_json.get(&#39;track_date_only&#39;), False)
+        self.__track_date_only = parse_bool(
+            parsed_json.get(&#39;track_date_only&#39;), False)
         self.__rollover = parse_bool(parsed_json.get(&#39;rollover&#39;), False)
         self.__assignment_type = parsed_json.get(&#39;assignment_type&#39;, None)
         self.__assignment_config = parsed_json.get(&#39;assignment_config&#39;, None)
