@@ -10,6 +10,7 @@ from pygrocydm.location import Location
 from pygrocydm.product import Product
 from pygrocydm.quantity_unit import QuantityUnit
 from pygrocydm.shopping_list import ShoppingList, ShoppingListItem
+from pygrocydm.task import Task
 
 
 class TestGrocyDataManager(TestCase):
@@ -153,3 +154,10 @@ class TestGrocyDataManager(TestCase):
         assert len(quantity_units) >=1
         for quantity_unit in quantity_units:
             assert isinstance(quantity_unit, QuantityUnit)
+
+    def test_tasks_valid(self):
+        tasks = self.gdm.tasks().list
+        assert isinstance(tasks, tuple)
+        assert len(tasks) >=1
+        for task in tasks:
+            assert isinstance(task, Task)

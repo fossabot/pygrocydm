@@ -7,6 +7,7 @@ from .product import PRODUCTS_ENDPOINT, Product
 from .quantity_unit import QUANTITY_UNITS_ENDPOINT, QuantityUnit
 from .shopping_list import (SHOPPING_LIST_ENDPOINT, SHOPPING_LISTS_ENDPOINT,
                             ShoppingList, ShoppingListItem)
+from .task import TASKS_ENDPOINT, Task
 
 
 class GrocyDataManager():
@@ -43,3 +44,7 @@ class GrocyDataManager():
     def quantity_units(self) -> GrocyEntityList:
         cls = QuantityUnit
         return GrocyEntityList(self.__api, cls, QUANTITY_UNITS_ENDPOINT)
+
+    def tasks(self) -> GrocyEntityList:
+        cls = Task
+        return GrocyEntityList(self.__api, cls, TASKS_ENDPOINT)
