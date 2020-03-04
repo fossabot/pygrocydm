@@ -8,4 +8,5 @@
     - "deepsource"
     - "internal"
     - "bestpractice"
+    - "update version"
   changelogFilename: "CHANGELOG.md"
