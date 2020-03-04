@@ -42,7 +42,8 @@ class ShoppingListItem(GrocyEntity):
         self.__amount = parse_float(parsed_json.get('amount'), 0)
         self.__shopping_list_id = parse_int(parsed_json.get('shopping_list_id'))
         self.__done = parse_bool(parsed_json.get('done'), False)
-        self.__row_created_timestamp = parse_date(parsed_json.get('row_created_timestamp'))
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get('row_created_timestamp'))
         self.__endpoint = '{}/{}'.format(SHOPPING_LIST_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 
