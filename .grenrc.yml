@@ -2,4 +2,10 @@
   dataSource: "commits"
   prefix: ""
   includeMessages: "commits"
+  ignoreCommitsWith: 
+    - "readme"
+    - "travis"
+    - "deepsource"
+    - "internal"
+    - "bestpractice"
   changelogFilename: "CHANGELOG.md"
