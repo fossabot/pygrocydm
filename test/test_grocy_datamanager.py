@@ -124,3 +124,25 @@ class TestGrocyDataManager(TestCase):
         product = self.gdm.products().list[-1]
         product.delete()
         assert 'error' in product.delete()
+
+    def test_search_product_valid(self):
+        products = self.gdm.products().search("Co")
+        assert isinstance(products, tuple)
+        assert len(products) >=1
+        for product in products:
+            assert isinstance(product, Product)
+
+    def test_search_product_invalid_no_data(self):
+        products = self.gdm.products().search("Toto")
+        assert products is None
+
+    @responses.activate
+    def test_search_product_error(self):
+        url = '{}:{}/api/objects/products'.format(CONST_BASE_URL, CONST_PORT)
+        responses.add_passthru(url)
+        responses.add(responses.GET,
+            '{}/search/error'.format(url),
+            status=400)
+        products = self.gdm.products().search("error")
+        assert products is None
+

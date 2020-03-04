@@ -95,6 +95,14 @@ class GrocyEntityList():
             return parse_int(resp.json().get('created_object_id'))
         return resp
 
+    def search(self, search_str: str) -> Tuple[GrocyEntity]:
+        endpoint = '{}/search/{}'.format(self.__endpoint, search_str)
+        parsed_json = self.__api.get_request(endpoint)
+        if parsed_json:
+            return tuple(
+                [self.__cls(response, self.__api) for response in parsed_json])
+        return None
+
     @property
     def list(self) -> Tuple[GrocyEntity]:
         return self.__list
