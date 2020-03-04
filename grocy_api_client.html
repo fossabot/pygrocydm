@@ -121,6 +121,14 @@ class GrocyEntityList():
             return parse_int(resp.json().get(&#39;created_object_id&#39;))
         return resp
 
+    def search(self, search_str: str) -&gt; Tuple[GrocyEntity]:
+        endpoint = &#39;{}/search/{}&#39;.format(self.__endpoint, search_str)
+        parsed_json = self.__api.get_request(endpoint)
+        if parsed_json:
+            return tuple(
+                [self.__cls(response, self.__api) for response in parsed_json])
+        return None
+
     @property
     def list(self) -&gt; Tuple[GrocyEntity]:
         return self.__list</code></pre>
@@ -369,6 +377,14 @@ class GrocyEntityList():
             return parse_int(resp.json().get(&#39;created_object_id&#39;))
         return resp
 
+    def search(self, search_str: str) -&gt; Tuple[GrocyEntity]:
+        endpoint = &#39;{}/search/{}&#39;.format(self.__endpoint, search_str)
+        parsed_json = self.__api.get_request(endpoint)
+        if parsed_json:
+            return tuple(
+                [self.__cls(response, self.__api) for response in parsed_json])
+        return None
+
     @property
     def list(self) -&gt; Tuple[GrocyEntity]:
         return self.__list</code></pre>
@@ -423,6 +439,24 @@ def list(self) -&gt; Tuple[GrocyEntity]:
             [self.__cls(response, self.__api) for response in parsed_json])</code></pre>
 </details>
 </dd>
+<dt id="pygrocydm.grocy_api_client.GrocyEntityList.search"><code class="name flex">
+<span>def <span class="ident">search</span></span>(<span>self, search_str)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search(self, search_str: str) -&gt; Tuple[GrocyEntity]:
+    endpoint = &#39;{}/search/{}&#39;.format(self.__endpoint, search_str)
+    parsed_json = self.__api.get_request(endpoint)
+    if parsed_json:
+        return tuple(
+            [self.__cls(response, self.__api) for response in parsed_json])
+    return None</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -463,6 +497,7 @@ def list(self) -&gt; Tuple[GrocyEntity]:
 <li><code><a title="pygrocydm.grocy_api_client.GrocyEntityList.add" href="#pygrocydm.grocy_api_client.GrocyEntityList.add">add</a></code></li>
 <li><code><a title="pygrocydm.grocy_api_client.GrocyEntityList.list" href="#pygrocydm.grocy_api_client.GrocyEntityList.list">list</a></code></li>
 <li><code><a title="pygrocydm.grocy_api_client.GrocyEntityList.refresh" href="#pygrocydm.grocy_api_client.GrocyEntityList.refresh">refresh</a></code></li>
+<li><code><a title="pygrocydm.grocy_api_client.GrocyEntityList.search" href="#pygrocydm.grocy_api_client.GrocyEntityList.search">search</a></code></li>
 </ul>
 </li>
 </ul>
