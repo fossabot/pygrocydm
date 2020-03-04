@@ -4,6 +4,7 @@ from .grocy_api_client import (DEFAULT_PORT_NUMBER, GrocyApiClient,
                                GrocyEntityList)
 from .location import LOCATION_ENDPOINT, Location
 from .product import PRODUCTS_ENDPOINT, Product
+from .quantity_unit import QUANTITY_UNITS_ENDPOINT, QuantityUnit
 from .shopping_list import (SHOPPING_LIST_ENDPOINT, SHOPPING_LISTS_ENDPOINT,
                             ShoppingList, ShoppingListItem)
 
@@ -38,3 +39,7 @@ class GrocyDataManager():
     def shopping_lists(self) -> GrocyEntityList:
         cls = ShoppingList
         return GrocyEntityList(self.__api, cls, SHOPPING_LISTS_ENDPOINT)
+
+    def quantity_units(self) -> GrocyEntityList:
+        cls = QuantityUnit
+        return GrocyEntityList(self.__api, cls, QUANTITY_UNITS_ENDPOINT)

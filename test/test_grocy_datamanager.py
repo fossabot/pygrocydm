@@ -8,6 +8,7 @@ from pygrocydm.battery import Battery
 from pygrocydm.chore import Chore
 from pygrocydm.location import Location
 from pygrocydm.product import Product
+from pygrocydm.quantity_unit import QuantityUnit
 from pygrocydm.shopping_list import ShoppingList, ShoppingListItem
 
 
@@ -145,3 +146,10 @@ class TestGrocyDataManager(TestCase):
             status=400)
         products = self.gdm.products().search("error")
         assert products is None
+
+    def test_quantity_units_valid(self):
+        quantity_units = self.gdm.quantity_units().list
+        assert isinstance(quantity_units, tuple)
+        assert len(quantity_units) >=1
+        for quantity_unit in quantity_units:
+            assert isinstance(quantity_unit, QuantityUnit)
