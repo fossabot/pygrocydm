@@ -2,7 +2,7 @@
   dataSource: "commits"
   prefix: ""
   includeMessages: "commits"
-  ignoreCommitsWith: 
+  ignoreCommitsWith:
     - "readme"
     - "travis"
     - "deepsource"
