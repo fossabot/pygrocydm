@@ -18,6 +18,7 @@
 - batteries
 - shopping_list
 - shopping_lists
+- quantity_units
 
 Check [Grocy API](https://demo.grocy.info/api#/Generic%20entity%20interactions)
 
