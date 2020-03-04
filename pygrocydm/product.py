@@ -19,7 +19,8 @@ class Product(GrocyEntity):
             parsed_json.get('enable_tare_weight_handling', None))
         self.__not_check_stock_fulfillment_for_recipes = parse_int(
             parsed_json.get('not_check_stock_fulfillment_for_recipes'), None)
-        self.__product_group_id = parse_int(parsed_json.get('product_group_id'), None)
+        self.__product_group_id = parse_int(
+            parsed_json.get('product_group_id'), None)
         self.__qu_factor_purchase_to_stock = parse_float(
             parsed_json.get('qu_factor_purchase_to_stock'))
         self.__tare_weight = parse_float(parsed_json.get('tare_weight', None))
@@ -34,8 +35,7 @@ class Product(GrocyEntity):
         self.__default_best_before_days = parse_int(
             parsed_json.get('default_best_before_days', None))
         self.__default_best_before_days_after_open = parse_int(
-            parsed_json.get('default_best_before_days_after_open',
-            None))
+            parsed_json.get('default_best_before_days_after_open', None))
         self.__picture_file_name = parsed_json.get('picture_file_name', None)
         self.__allow_partial_units_in_stock = parse_bool(
             parsed_json.get('allow_partial_units_in_stock', False),

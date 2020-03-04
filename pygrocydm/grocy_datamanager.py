@@ -9,8 +9,8 @@ from .shopping_list import (SHOPPING_LIST_ENDPOINT, SHOPPING_LISTS_ENDPOINT,
 
 
 class GrocyDataManager():
-    def __init__(self,
-            base_url, api_key,
+    def __init__(
+            self, base_url, api_key,
             port: int = DEFAULT_PORT_NUMBER,
             verify_ssl=True):
         self.__api = GrocyApiClient(base_url, api_key, port, verify_ssl)

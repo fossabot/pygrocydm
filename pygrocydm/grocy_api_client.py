@@ -10,12 +10,9 @@ DEFAULT_PORT_NUMBER = 9192
 
 
 class GrocyApiClient():
-    def __init__(self,
-            base_url,
-            api_key,
-            port: int = DEFAULT_PORT_NUMBER,
-            verify_ssl=True
-    ):
+    def __init__(
+                self, base_url, api_key,
+                port: int = DEFAULT_PORT_NUMBER, verify_ssl=True):
         self.__base_url = '{}:{}/api/'.format(base_url, port)
         self.__api_key = api_key
         self.__verify_ssl = verify_ssl
@@ -29,24 +26,24 @@ class GrocyApiClient():
 
     def get_request(self, endpoint: str):
         req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.get(req_url, verify=self.__verify_ssl, headers=self.__headers)
+        resp = requests.get(
+            req_url, verify=self.__verify_ssl, headers=self.__headers)
         if resp.status_code != 200:
             return None
         return resp.json()
 
     def post_request(self, endpoint: str, data: dict):
         req_url = urljoin(self.__base_url, endpoint)
-        return requests.post(req_url,
-                verify=self.__verify_ssl,
-                headers=self.__headers,
-                data=data
-        )
+        return requests.post(
+            req_url, verify=self.__verify_ssl,
+            headers=self.__headers,
+            data=data)
 
     def delete_request(self, endpoint: str):
         req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.delete(req_url,
-                                                    verify=self.__verify_ssl,
-                                                    headers=self.__headers)
+        resp = requests.delete(
+            req_url, verify=self.__verify_ssl,
+            headers=self.__headers)
         if resp.status_code != 204:
             return resp.json()
         return True
@@ -56,10 +53,10 @@ class GrocyApiClient():
         up_header['accept'] = '*/*'
         up_header['Content-Type'] = 'application/json'
         req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.put(req_url,
-                                                verify=self.__verify_ssl,
-                                                headers=up_header,
-                                                data=json.dumps(data))
+        resp = requests.put(
+            req_url, verify=self.__verify_ssl,
+            headers=up_header,
+            data=json.dumps(data))
         if resp.status_code != 204:
             return resp.json()
         return True
