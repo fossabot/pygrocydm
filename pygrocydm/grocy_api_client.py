@@ -1,11 +1,11 @@
-from datetime import datetime
 import json
+from datetime import datetime
 from typing import Tuple
 from urllib.parse import urljoin
 
 import requests
 
-from .utils import parse_int, parse_date
+from .utils import parse_date, parse_int
 
 DEFAULT_PORT_NUMBER = 9192
 
@@ -98,7 +98,9 @@ class GrocyEntityList():
         parsed_json = self.__api.get_request(self.__endpoint)
         if parsed_json:
             self.__list = tuple(
-                [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
+                [self.__cls(
+                    self.__api, self.__endpoint,
+                    response) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -111,7 +113,9 @@ class GrocyEntityList():
         parsed_json = self.__api.get_request(endpoint)
         if parsed_json:
             return tuple(
-                [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
+                [self.__cls(
+                    self.__api, self.__endpoint,
+                    response) for response in parsed_json])
         return None
 
     @property
