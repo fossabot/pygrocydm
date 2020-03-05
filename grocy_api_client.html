@@ -74,7 +74,6 @@ class GrocyApiClient():
             req_url, verify=self.__verify_ssl,
             headers=self.__headers)
         resp.raise_for_status()
-        return None
 
     def put_request(self, endpoint: str, data: dict):
         up_header = self.__headers.copy()
@@ -86,7 +85,6 @@ class GrocyApiClient():
             headers=up_header,
             data=json.dumps(data))
         resp.raise_for_status()
-        return None
 
 
 class GrocyEntity():
@@ -192,7 +190,6 @@ class GrocyEntityList():
             req_url, verify=self.__verify_ssl,
             headers=self.__headers)
         resp.raise_for_status()
-        return None
 
     def put_request(self, endpoint: str, data: dict):
         up_header = self.__headers.copy()
@@ -203,8 +200,7 @@ class GrocyEntityList():
             req_url, verify=self.__verify_ssl,
             headers=up_header,
             data=json.dumps(data))
-        resp.raise_for_status()
-        return None</code></pre>
+        resp.raise_for_status()</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -222,8 +218,7 @@ class GrocyEntityList():
     resp = requests.delete(
         req_url, verify=self.__verify_ssl,
         headers=self.__headers)
-    resp.raise_for_status()
-    return None</code></pre>
+    resp.raise_for_status()</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyApiClient.get_request"><code class="name flex">
@@ -282,8 +277,7 @@ class GrocyEntityList():
         req_url, verify=self.__verify_ssl,
         headers=up_header,
         data=json.dumps(data))
-    resp.raise_for_status()
-    return None</code></pre>
+    resp.raise_for_status()</code></pre>
 </details>
 </dd>
 </dl>
