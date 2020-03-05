@@ -33,25 +33,17 @@ TASKS_ENDPOINT = &#39;objects/tasks&#39;
 
 
 class Task(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__due_date = parse_date(parsed_json.get(&#39;due_date&#39;, None))
         self.__done = parse_bool(parsed_json.get(&#39;done&#39;), False)
         self.__done_timestamp = parse_date(
             parsed_json.get(&#39;done_timestamp&#39;, None))
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__category_id = parse_int(parsed_json.get(&#39;category_id&#39;), None)
         self.__assigned_to_user_id = parse_int(
             parsed_json.get(&#39;assigned_to_user_id&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(TASKS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -&gt; str:
@@ -79,11 +71,7 @@ class Task(GrocyEntity):
 
     @property
     def assigned_to_user_id(self) -&gt; int:
-        return self.__assigned_to_user_id
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__assigned_to_user_id</code></pre>
 </details>
 </section>
 <section>
@@ -97,7 +85,7 @@ class Task(GrocyEntity):
 <dl>
 <dt id="pygrocydm.task.Task"><code class="flex name class">
 <span>class <span class="ident">Task</span></span>
-<span>(</span><span>parsed_json, api)</span>
+<span>(</span><span>api, endpoint, parsed_json)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -106,25 +94,17 @@ class Task(GrocyEntity):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Task(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__due_date = parse_date(parsed_json.get(&#39;due_date&#39;, None))
         self.__done = parse_bool(parsed_json.get(&#39;done&#39;), False)
         self.__done_timestamp = parse_date(
             parsed_json.get(&#39;done_timestamp&#39;, None))
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__category_id = parse_int(parsed_json.get(&#39;category_id&#39;), None)
         self.__assigned_to_user_id = parse_int(
             parsed_json.get(&#39;assigned_to_user_id&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(TASKS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -&gt; str:
@@ -152,11 +132,7 @@ class Task(GrocyEntity):
 
     @property
     def assigned_to_user_id(self) -&gt; int:
-        return self.__assigned_to_user_id
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__assigned_to_user_id</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -236,18 +212,6 @@ def due_date(self) -&gt; datetime:
     return self.__due_date</code></pre>
 </details>
 </dd>
-<dt id="pygrocydm.task.Task.id"><code class="name">var <span class="ident">id</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def id(self) -&gt; int:
-    return self.__id</code></pre>
-</details>
-</dd>
 <dt id="pygrocydm.task.Task.name"><code class="name">var <span class="ident">name</span></code></dt>
 <dd>
 <section class="desc"></section>
@@ -258,18 +222,6 @@ def id(self) -&gt; int:
 <pre><code class="python">@property
 def name(self) -&gt; str:
     return self.__name</code></pre>
-</details>
-</dd>
-<dt id="pygrocydm.task.Task.row_created_timestamp"><code class="name">var <span class="ident">row_created_timestamp</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def row_created_timestamp(self) -&gt; datetime:
-    return self.__row_created_timestamp</code></pre>
 </details>
 </dd>
 </dl>
@@ -292,16 +244,14 @@ def row_created_timestamp(self) -&gt; datetime:
 <ul>
 <li>
 <h4><code><a title="pygrocydm.task.Task" href="#pygrocydm.task.Task">Task</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="pygrocydm.task.Task.assigned_to_user_id" href="#pygrocydm.task.Task.assigned_to_user_id">assigned_to_user_id</a></code></li>
 <li><code><a title="pygrocydm.task.Task.category_id" href="#pygrocydm.task.Task.category_id">category_id</a></code></li>
 <li><code><a title="pygrocydm.task.Task.description" href="#pygrocydm.task.Task.description">description</a></code></li>
 <li><code><a title="pygrocydm.task.Task.done" href="#pygrocydm.task.Task.done">done</a></code></li>
 <li><code><a title="pygrocydm.task.Task.done_timestamp" href="#pygrocydm.task.Task.done_timestamp">done_timestamp</a></code></li>
 <li><code><a title="pygrocydm.task.Task.due_date" href="#pygrocydm.task.Task.due_date">due_date</a></code></li>
-<li><code><a title="pygrocydm.task.Task.id" href="#pygrocydm.task.Task.id">id</a></code></li>
 <li><code><a title="pygrocydm.task.Task.name" href="#pygrocydm.task.Task.name">name</a></code></li>
-<li><code><a title="pygrocydm.task.Task.row_created_timestamp" href="#pygrocydm.task.Task.row_created_timestamp">row_created_timestamp</a></code></li>
 </ul>
 </li>
 </ul>

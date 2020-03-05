@@ -24,18 +24,16 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from datetime import datetime
-from typing import List
+<pre><code class="python">from typing import List
 
 from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_bool, parse_date, parse_float, parse_int
+from .utils import parse_bool, parse_float, parse_int
 
 PRODUCTS_ENDPOINT = &#39;objects/products&#39;
 
 
 class Product(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__location_id = parse_int(parsed_json.get(&#39;location_id&#39;))
@@ -66,14 +64,7 @@ class Product(GrocyEntity):
         self.__allow_partial_units_in_stock = parse_bool(
             parsed_json.get(&#39;allow_partial_units_in_stock&#39;, False),
             False)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(PRODUCTS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def product_group_id(self) -&gt; int:
@@ -137,11 +128,7 @@ class Product(GrocyEntity):
 
     @property
     def allow_partial_units_in_stock(self) -&gt; bool:
-        return self.__allow_partial_units_in_stock
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__allow_partial_units_in_stock</code></pre>
 </details>
 </section>
 <section>
@@ -155,7 +142,7 @@ class Product(GrocyEntity):
 <dl>
 <dt id="pygrocydm.product.Product"><code class="flex name class">
 <span>class <span class="ident">Product</span></span>
-<span>(</span><span>parsed_json, api)</span>
+<span>(</span><span>api, endpoint, parsed_json)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -164,8 +151,7 @@ class Product(GrocyEntity):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Product(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__location_id = parse_int(parsed_json.get(&#39;location_id&#39;))
@@ -196,14 +182,7 @@ class Product(GrocyEntity):
         self.__allow_partial_units_in_stock = parse_bool(
             parsed_json.get(&#39;allow_partial_units_in_stock&#39;, False),
             False)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(PRODUCTS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def product_group_id(self) -&gt; int:
@@ -267,11 +246,7 @@ class Product(GrocyEntity):
 
     @property
     def allow_partial_units_in_stock(self) -&gt; bool:
-        return self.__allow_partial_units_in_stock
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__allow_partial_units_in_stock</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -349,18 +324,6 @@ def description(self) -&gt; str:
 <pre><code class="python">@property
 def enable_tare_weight_handling(self) -&gt; int:
     return self.__enable_tare_weight_handling</code></pre>
-</details>
-</dd>
-<dt id="pygrocydm.product.Product.id"><code class="name">var <span class="ident">id</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def id(self) -&gt; int:
-    return self.__id</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.product.Product.location_id"><code class="name">var <span class="ident">location_id</span></code></dt>
@@ -471,18 +434,6 @@ def qu_id_stock(self) -&gt; int:
     return self.__qu_id_stock</code></pre>
 </details>
 </dd>
-<dt id="pygrocydm.product.Product.row_created_timestamp"><code class="name">var <span class="ident">row_created_timestamp</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def row_created_timestamp(self) -&gt; datetime:
-    return self.__row_created_timestamp</code></pre>
-</details>
-</dd>
 <dt id="pygrocydm.product.Product.tare_weight"><code class="name">var <span class="ident">tare_weight</span></code></dt>
 <dd>
 <section class="desc"></section>
@@ -522,7 +473,6 @@ def tare_weight(self) -&gt; float:
 <li><code><a title="pygrocydm.product.Product.default_best_before_days_after_open" href="#pygrocydm.product.Product.default_best_before_days_after_open">default_best_before_days_after_open</a></code></li>
 <li><code><a title="pygrocydm.product.Product.description" href="#pygrocydm.product.Product.description">description</a></code></li>
 <li><code><a title="pygrocydm.product.Product.enable_tare_weight_handling" href="#pygrocydm.product.Product.enable_tare_weight_handling">enable_tare_weight_handling</a></code></li>
-<li><code><a title="pygrocydm.product.Product.id" href="#pygrocydm.product.Product.id">id</a></code></li>
 <li><code><a title="pygrocydm.product.Product.location_id" href="#pygrocydm.product.Product.location_id">location_id</a></code></li>
 <li><code><a title="pygrocydm.product.Product.min_stock_amount" href="#pygrocydm.product.Product.min_stock_amount">min_stock_amount</a></code></li>
 <li><code><a title="pygrocydm.product.Product.name" href="#pygrocydm.product.Product.name">name</a></code></li>
@@ -532,7 +482,6 @@ def tare_weight(self) -&gt; float:
 <li><code><a title="pygrocydm.product.Product.qu_factor_purchase_to_stock" href="#pygrocydm.product.Product.qu_factor_purchase_to_stock">qu_factor_purchase_to_stock</a></code></li>
 <li><code><a title="pygrocydm.product.Product.qu_id_purchase" href="#pygrocydm.product.Product.qu_id_purchase">qu_id_purchase</a></code></li>
 <li><code><a title="pygrocydm.product.Product.qu_id_stock" href="#pygrocydm.product.Product.qu_id_stock">qu_id_stock</a></code></li>
-<li><code><a title="pygrocydm.product.Product.row_created_timestamp" href="#pygrocydm.product.Product.row_created_timestamp">row_created_timestamp</a></code></li>
 <li><code><a title="pygrocydm.product.Product.tare_weight" href="#pygrocydm.product.Product.tare_weight">tare_weight</a></code></li>
 </ul>
 </li>

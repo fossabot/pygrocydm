@@ -24,11 +24,10 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from datetime import datetime
-from enum import Enum
+<pre><code class="python">from enum import Enum
 
 from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_bool, parse_date, parse_int
+from .utils import parse_bool, parse_int
 
 CHORES_ENDPOINT = &#39;objects/chores&#39;
 
@@ -49,8 +48,7 @@ class AssignmentType(Enum):
 
 
 class Chore(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__period_type = parsed_json.get(&#39;period_type&#39;)
@@ -64,14 +62,7 @@ class Chore(GrocyEntity):
         self.__next_execution_assigned_to_user_id = parse_int(
             parsed_json.get(&#39;next_execution_assigned_to_user_id&#39;),
             None)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(CHORES_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -&gt; str:
@@ -111,11 +102,7 @@ class Chore(GrocyEntity):
 
     @property
     def next_execution_assigned_to_user_id(self) -&gt; int:
-        return self.__next_execution_assigned_to_user_id
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__next_execution_assigned_to_user_id</code></pre>
 </details>
 </section>
 <section>
@@ -169,7 +156,7 @@ class Chore(GrocyEntity):
 </dd>
 <dt id="pygrocydm.chore.Chore"><code class="flex name class">
 <span>class <span class="ident">Chore</span></span>
-<span>(</span><span>parsed_json, api)</span>
+<span>(</span><span>api, endpoint, parsed_json)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -178,8 +165,7 @@ class Chore(GrocyEntity):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Chore(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__period_type = parsed_json.get(&#39;period_type&#39;)
@@ -193,14 +179,7 @@ class Chore(GrocyEntity):
         self.__next_execution_assigned_to_user_id = parse_int(
             parsed_json.get(&#39;next_execution_assigned_to_user_id&#39;),
             None)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(CHORES_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -&gt; str:
@@ -240,11 +219,7 @@ class Chore(GrocyEntity):
 
     @property
     def next_execution_assigned_to_user_id(self) -&gt; int:
-        return self.__next_execution_assigned_to_user_id
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__next_execution_assigned_to_user_id</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -286,18 +261,6 @@ def assignment_type(self) -&gt; str:
 <pre><code class="python">@property
 def description(self) -&gt; str:
     return self.__description</code></pre>
-</details>
-</dd>
-<dt id="pygrocydm.chore.Chore.id"><code class="name">var <span class="ident">id</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def id(self) -&gt; int:
-    return self.__id</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.chore.Chore.name"><code class="name">var <span class="ident">name</span></code></dt>
@@ -370,18 +333,6 @@ def period_type(self) -&gt; str:
 <pre><code class="python">@property
 def rollover(self) -&gt; bool:
     return self.__rollover</code></pre>
-</details>
-</dd>
-<dt id="pygrocydm.chore.Chore.row_created_timestamp"><code class="name">var <span class="ident">row_created_timestamp</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def row_created_timestamp(self) -&gt; datetime:
-    return self.__row_created_timestamp</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.chore.Chore.track_date_only"><code class="name">var <span class="ident">track_date_only</span></code></dt>
@@ -474,14 +425,12 @@ def track_date_only(self) -&gt; bool:
 <li><code><a title="pygrocydm.chore.Chore.assignment_config" href="#pygrocydm.chore.Chore.assignment_config">assignment_config</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.assignment_type" href="#pygrocydm.chore.Chore.assignment_type">assignment_type</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.description" href="#pygrocydm.chore.Chore.description">description</a></code></li>
-<li><code><a title="pygrocydm.chore.Chore.id" href="#pygrocydm.chore.Chore.id">id</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.name" href="#pygrocydm.chore.Chore.name">name</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.next_execution_assigned_to_user_id" href="#pygrocydm.chore.Chore.next_execution_assigned_to_user_id">next_execution_assigned_to_user_id</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.period_config" href="#pygrocydm.chore.Chore.period_config">period_config</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.period_days" href="#pygrocydm.chore.Chore.period_days">period_days</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.period_type" href="#pygrocydm.chore.Chore.period_type">period_type</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.rollover" href="#pygrocydm.chore.Chore.rollover">rollover</a></code></li>
-<li><code><a title="pygrocydm.chore.Chore.row_created_timestamp" href="#pygrocydm.chore.Chore.row_created_timestamp">row_created_timestamp</a></code></li>
 <li><code><a title="pygrocydm.chore.Chore.track_date_only" href="#pygrocydm.chore.Chore.track_date_only">track_date_only</a></code></li>
 </ul>
 </li>

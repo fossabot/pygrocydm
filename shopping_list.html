@@ -24,28 +24,18 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from datetime import datetime
-
-from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_bool, parse_date, parse_float, parse_int
+<pre><code class="python">from .grocy_api_client import GrocyApiClient, GrocyEntity
+from .utils import parse_bool, parse_float, parse_int
 
 SHOPPING_LISTS_ENDPOINT = &#39;objects/shopping_lists&#39;
 SHOPPING_LIST_ENDPOINT = &#39;objects/shopping_list&#39;
 
 
 class ShoppingList(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(SHOPPING_LISTS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -&gt; str:
@@ -55,28 +45,16 @@ class ShoppingList(GrocyEntity):
     def description(self) -&gt; str:
         return self.__description
 
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp
-
 
 class ShoppingListItem(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__product_id = parse_int(parsed_json.get(&#39;product_id&#39;), None)
         self.__note = parsed_json.get(&#39;note&#39;, None)
         self.__amount = parse_float(parsed_json.get(&#39;amount&#39;), 0)
         self.__shopping_list_id = parse_int(
             parsed_json.get(&#39;shopping_list_id&#39;))
         self.__done = parse_bool(parsed_json.get(&#39;done&#39;), False)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(SHOPPING_LIST_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def product_id(self) -&gt; int:
@@ -96,11 +74,7 @@ class ShoppingListItem(GrocyEntity):
 
     @property
     def done(self) -&gt; bool:
-        return self.__done
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__done</code></pre>
 </details>
 </section>
 <section>
@@ -114,7 +88,7 @@ class ShoppingListItem(GrocyEntity):
 <dl>
 <dt id="pygrocydm.shopping_list.ShoppingList"><code class="flex name class">
 <span>class <span class="ident">ShoppingList</span></span>
-<span>(</span><span>parsed_json, api)</span>
+<span>(</span><span>api, endpoint, parsed_json)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -123,18 +97,10 @@ class ShoppingListItem(GrocyEntity):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class ShoppingList(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(SHOPPING_LISTS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -&gt; str:
@@ -142,11 +108,7 @@ class ShoppingListItem(GrocyEntity):
 
     @property
     def description(self) -&gt; str:
-        return self.__description
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__description</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -166,18 +128,6 @@ def description(self) -&gt; str:
     return self.__description</code></pre>
 </details>
 </dd>
-<dt id="pygrocydm.shopping_list.ShoppingList.id"><code class="name">var <span class="ident">id</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def id(self) -&gt; int:
-    return self.__id</code></pre>
-</details>
-</dd>
 <dt id="pygrocydm.shopping_list.ShoppingList.name"><code class="name">var <span class="ident">name</span></code></dt>
 <dd>
 <section class="desc"></section>
@@ -190,23 +140,11 @@ def name(self) -&gt; str:
     return self.__name</code></pre>
 </details>
 </dd>
-<dt id="pygrocydm.shopping_list.ShoppingList.row_created_timestamp"><code class="name">var <span class="ident">row_created_timestamp</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def row_created_timestamp(self) -&gt; datetime:
-    return self.__row_created_timestamp</code></pre>
-</details>
-</dd>
 </dl>
 </dd>
 <dt id="pygrocydm.shopping_list.ShoppingListItem"><code class="flex name class">
 <span>class <span class="ident">ShoppingListItem</span></span>
-<span>(</span><span>parsed_json, api)</span>
+<span>(</span><span>api, endpoint, parsed_json)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -215,22 +153,14 @@ def row_created_timestamp(self) -&gt; datetime:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class ShoppingListItem(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__product_id = parse_int(parsed_json.get(&#39;product_id&#39;), None)
         self.__note = parsed_json.get(&#39;note&#39;, None)
         self.__amount = parse_float(parsed_json.get(&#39;amount&#39;), 0)
         self.__shopping_list_id = parse_int(
             parsed_json.get(&#39;shopping_list_id&#39;))
         self.__done = parse_bool(parsed_json.get(&#39;done&#39;), False)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(SHOPPING_LIST_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def product_id(self) -&gt; int:
@@ -250,11 +180,7 @@ def row_created_timestamp(self) -&gt; datetime:
 
     @property
     def done(self) -&gt; bool:
-        return self.__done
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__done</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -286,18 +212,6 @@ def done(self) -&gt; bool:
     return self.__done</code></pre>
 </details>
 </dd>
-<dt id="pygrocydm.shopping_list.ShoppingListItem.id"><code class="name">var <span class="ident">id</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def id(self) -&gt; int:
-    return self.__id</code></pre>
-</details>
-</dd>
 <dt id="pygrocydm.shopping_list.ShoppingListItem.note"><code class="name">var <span class="ident">note</span></code></dt>
 <dd>
 <section class="desc"></section>
@@ -320,18 +234,6 @@ def note(self) -&gt; str:
 <pre><code class="python">@property
 def product_id(self) -&gt; int:
     return self.__product_id</code></pre>
-</details>
-</dd>
-<dt id="pygrocydm.shopping_list.ShoppingListItem.row_created_timestamp"><code class="name">var <span class="ident">row_created_timestamp</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def row_created_timestamp(self) -&gt; datetime:
-    return self.__row_created_timestamp</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.shopping_list.ShoppingListItem.shopping_list_id"><code class="name">var <span class="ident">shopping_list_id</span></code></dt>
@@ -368,9 +270,7 @@ def shopping_list_id(self) -&gt; int:
 <h4><code><a title="pygrocydm.shopping_list.ShoppingList" href="#pygrocydm.shopping_list.ShoppingList">ShoppingList</a></code></h4>
 <ul class="">
 <li><code><a title="pygrocydm.shopping_list.ShoppingList.description" href="#pygrocydm.shopping_list.ShoppingList.description">description</a></code></li>
-<li><code><a title="pygrocydm.shopping_list.ShoppingList.id" href="#pygrocydm.shopping_list.ShoppingList.id">id</a></code></li>
 <li><code><a title="pygrocydm.shopping_list.ShoppingList.name" href="#pygrocydm.shopping_list.ShoppingList.name">name</a></code></li>
-<li><code><a title="pygrocydm.shopping_list.ShoppingList.row_created_timestamp" href="#pygrocydm.shopping_list.ShoppingList.row_created_timestamp">row_created_timestamp</a></code></li>
 </ul>
 </li>
 <li>
@@ -378,10 +278,8 @@ def shopping_list_id(self) -&gt; int:
 <ul class="">
 <li><code><a title="pygrocydm.shopping_list.ShoppingListItem.amount" href="#pygrocydm.shopping_list.ShoppingListItem.amount">amount</a></code></li>
 <li><code><a title="pygrocydm.shopping_list.ShoppingListItem.done" href="#pygrocydm.shopping_list.ShoppingListItem.done">done</a></code></li>
-<li><code><a title="pygrocydm.shopping_list.ShoppingListItem.id" href="#pygrocydm.shopping_list.ShoppingListItem.id">id</a></code></li>
 <li><code><a title="pygrocydm.shopping_list.ShoppingListItem.note" href="#pygrocydm.shopping_list.ShoppingListItem.note">note</a></code></li>
 <li><code><a title="pygrocydm.shopping_list.ShoppingListItem.product_id" href="#pygrocydm.shopping_list.ShoppingListItem.product_id">product_id</a></code></li>
-<li><code><a title="pygrocydm.shopping_list.ShoppingListItem.row_created_timestamp" href="#pygrocydm.shopping_list.ShoppingListItem.row_created_timestamp">row_created_timestamp</a></code></li>
 <li><code><a title="pygrocydm.shopping_list.ShoppingListItem.shopping_list_id" href="#pygrocydm.shopping_list.ShoppingListItem.shopping_list_id">shopping_list_id</a></code></li>
 </ul>
 </li>

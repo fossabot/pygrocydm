@@ -24,29 +24,18 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from datetime import datetime
-
-from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_date, parse_int
+<pre><code class="python">from .grocy_api_client import GrocyApiClient, GrocyEntity
 
 QUANTITY_UNITS_ENDPOINT = &#39;objects/quantity_units&#39;
 
 
 class QuantityUnit(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__name_plural = parsed_json.get(&#39;name_plural&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__plural_forms = parsed_json.get(&#39;plural_forms&#39;, None)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(QUANTITY_UNITS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -&gt; str:
@@ -62,11 +51,7 @@ class QuantityUnit(GrocyEntity):
 
     @property
     def description(self) -&gt; str:
-        return self.__description
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__description</code></pre>
 </details>
 </section>
 <section>
@@ -80,7 +65,7 @@ class QuantityUnit(GrocyEntity):
 <dl>
 <dt id="pygrocydm.quantity_unit.QuantityUnit"><code class="flex name class">
 <span>class <span class="ident">QuantityUnit</span></span>
-<span>(</span><span>parsed_json, api)</span>
+<span>(</span><span>api, endpoint, parsed_json)</span>
 </code></dt>
 <dd>
 <section class="desc"></section>
@@ -89,20 +74,12 @@ class QuantityUnit(GrocyEntity):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class QuantityUnit(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get(&#39;name&#39;)
         self.__name_plural = parsed_json.get(&#39;name_plural&#39;)
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__plural_forms = parsed_json.get(&#39;plural_forms&#39;, None)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get(&#39;row_created_timestamp&#39;))
-        self.__endpoint = &#39;{}/{}&#39;.format(QUANTITY_UNITS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -&gt; int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -&gt; str:
@@ -118,11 +95,7 @@ class QuantityUnit(GrocyEntity):
 
     @property
     def description(self) -&gt; str:
-        return self.__description
-
-    @property
-    def row_created_timestamp(self) -&gt; datetime:
-        return self.__row_created_timestamp</code></pre>
+        return self.__description</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -140,18 +113,6 @@ class QuantityUnit(GrocyEntity):
 <pre><code class="python">@property
 def description(self) -&gt; str:
     return self.__description</code></pre>
-</details>
-</dd>
-<dt id="pygrocydm.quantity_unit.QuantityUnit.id"><code class="name">var <span class="ident">id</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def id(self) -&gt; int:
-    return self.__id</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.quantity_unit.QuantityUnit.name"><code class="name">var <span class="ident">name</span></code></dt>
@@ -190,18 +151,6 @@ def plural_forms(self) -&gt; str:
     return self.__plural_forms</code></pre>
 </details>
 </dd>
-<dt id="pygrocydm.quantity_unit.QuantityUnit.row_created_timestamp"><code class="name">var <span class="ident">row_created_timestamp</span></code></dt>
-<dd>
-<section class="desc"></section>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def row_created_timestamp(self) -&gt; datetime:
-    return self.__row_created_timestamp</code></pre>
-</details>
-</dd>
 </dl>
 </dd>
 </dl>
@@ -224,11 +173,9 @@ def row_created_timestamp(self) -&gt; datetime:
 <h4><code><a title="pygrocydm.quantity_unit.QuantityUnit" href="#pygrocydm.quantity_unit.QuantityUnit">QuantityUnit</a></code></h4>
 <ul class="">
 <li><code><a title="pygrocydm.quantity_unit.QuantityUnit.description" href="#pygrocydm.quantity_unit.QuantityUnit.description">description</a></code></li>
-<li><code><a title="pygrocydm.quantity_unit.QuantityUnit.id" href="#pygrocydm.quantity_unit.QuantityUnit.id">id</a></code></li>
 <li><code><a title="pygrocydm.quantity_unit.QuantityUnit.name" href="#pygrocydm.quantity_unit.QuantityUnit.name">name</a></code></li>
 <li><code><a title="pygrocydm.quantity_unit.QuantityUnit.name_plural" href="#pygrocydm.quantity_unit.QuantityUnit.name_plural">name_plural</a></code></li>
 <li><code><a title="pygrocydm.quantity_unit.QuantityUnit.plural_forms" href="#pygrocydm.quantity_unit.QuantityUnit.plural_forms">plural_forms</a></code></li>
-<li><code><a title="pygrocydm.quantity_unit.QuantityUnit.row_created_timestamp" href="#pygrocydm.quantity_unit.QuantityUnit.row_created_timestamp">row_created_timestamp</a></code></li>
 </ul>
 </li>
 </ul>
