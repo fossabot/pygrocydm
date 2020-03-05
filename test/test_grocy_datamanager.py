@@ -9,6 +9,7 @@ from pygrocydm.battery import Battery
 from pygrocydm.chore import Chore
 from pygrocydm.location import Location
 from pygrocydm.product import Product
+from pygrocydm.product_group import ProductGroup
 from pygrocydm.quantity_unit import QuantityUnit
 from pygrocydm.shopping_list import ShoppingList, ShoppingListItem
 from pygrocydm.task import Task
@@ -169,3 +170,10 @@ class TestGrocyDataManager(TestCase):
         assert len(task_categories) >=1
         for task_category in task_categories:
             assert isinstance(task_category, TaskCategory)
+
+    def test_product_groups_valid(self):
+        product_groups = self.gdm.product_groups().list
+        assert isinstance(product_groups, tuple)
+        assert len(product_groups) >=1
+        for product_group in product_groups:
+            assert isinstance(product_group, ProductGroup)
