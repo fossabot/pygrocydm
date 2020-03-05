@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.5" />
-<title>pygrocydm API documentation</title>
-<meta name="description" content="The pygrocydm module" />
+<title>pygrocydm.task_category API documentation</title>
+<meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,76 +17,150 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pygrocydm</code></h1>
+<h1 class="title">Module <code>pygrocydm.task_category</code></h1>
 </header>
 <section id="section-intro">
-<p>The pygrocydm module</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;
-The pygrocydm module
-&#34;&#34;&#34;
-from .grocy_datamanager import GrocyDataManager
+<pre><code class="python">from datetime import datetime
 
-name = &#34;pygrocydm&#34;</code></pre>
+from .grocy_api_client import GrocyApiClient, GrocyEntity
+from .utils import parse_date, parse_int
+
+TASK_CATEGORIES_ENDPOINT = &#39;objects/task_categories&#39;
+
+
+class TaskCategory(GrocyEntity):
+    def __init__(self, parsed_json, api: GrocyApiClient):
+        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+        self.__name = parsed_json.get(&#39;name&#39;)
+        self.__description = parsed_json.get(&#39;description&#39;, None)
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__endpoint = &#39;{}/{}&#39;.format(TASK_CATEGORIES_ENDPOINT, self.__id)
+        super().__init__(api, self.__endpoint)
+
+    @property
+    def id(self) -&gt; int:
+        return self.__id
+
+    @property
+    def name(self) -&gt; str:
+        return self.__name
+
+    @property
+    def description(self) -&gt; str:
+        return self.__description
+
+    @property
+    def row_created_timestamp(self) -&gt; datetime:
+        return self.__row_created_timestamp</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt><code class="name"><a title="pygrocydm.battery" href="battery.html">pygrocydm.battery</a></code></dt>
+<dt id="pygrocydm.task_category.TaskCategory"><code class="flex name class">
+<span>class <span class="ident">TaskCategory</span></span>
+<span>(</span><span>parsed_json, api)</span>
+</code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TaskCategory(GrocyEntity):
+    def __init__(self, parsed_json, api: GrocyApiClient):
+        self.__id = parse_int(parsed_json.get(&#39;id&#39;))
+        self.__name = parsed_json.get(&#39;name&#39;)
+        self.__description = parsed_json.get(&#39;description&#39;, None)
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get(&#39;row_created_timestamp&#39;))
+        self.__endpoint = &#39;{}/{}&#39;.format(TASK_CATEGORIES_ENDPOINT, self.__id)
+        super().__init__(api, self.__endpoint)
+
+    @property
+    def id(self) -&gt; int:
+        return self.__id
+
+    @property
+    def name(self) -&gt; str:
+        return self.__name
+
+    @property
+    def description(self) -&gt; str:
+        return self.__description
+
+    @property
+    def row_created_timestamp(self) -&gt; datetime:
+        return self.__row_created_timestamp</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pygrocydm.grocy_api_client.GrocyEntity" href="grocy_api_client.html#pygrocydm.grocy_api_client.GrocyEntity">GrocyEntity</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pygrocydm.task_category.TaskCategory.description"><code class="name">var <span class="ident">description</span></code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    return self.__description</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="pygrocydm.chore" href="chore.html">pygrocydm.chore</a></code></dt>
+<dt id="pygrocydm.task_category.TaskCategory.id"><code class="name">var <span class="ident">id</span></code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    return self.__id</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="pygrocydm.grocy_api_client" href="grocy_api_client.html">pygrocydm.grocy_api_client</a></code></dt>
+<dt id="pygrocydm.task_category.TaskCategory.name"><code class="name">var <span class="ident">name</span></code></dt>
 <dd>
 <section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    return self.__name</code></pre>
+</details>
 </dd>
-<dt><code class="name"><a title="pygrocydm.grocy_datamanager" href="grocy_datamanager.html">pygrocydm.grocy_datamanager</a></code></dt>
+<dt id="pygrocydm.task_category.TaskCategory.row_created_timestamp"><code class="name">var <span class="ident">row_created_timestamp</span></code></dt>
 <dd>
 <section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="pygrocydm.location" href="location.html">pygrocydm.location</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="pygrocydm.product" href="product.html">pygrocydm.product</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="pygrocydm.quantity_unit" href="quantity_unit.html">pygrocydm.quantity_unit</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="pygrocydm.shopping_list" href="shopping_list.html">pygrocydm.shopping_list</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="pygrocydm.task" href="task.html">pygrocydm.task</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="pygrocydm.task_category" href="task_category.html">pygrocydm.task_category</a></code></dt>
-<dd>
-<section class="desc"></section>
-</dd>
-<dt><code class="name"><a title="pygrocydm.utils" href="utils.html">pygrocydm.utils</a></code></dt>
-<dd>
-<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def row_created_timestamp(self) -&gt; datetime:
+    return self.__row_created_timestamp</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -95,19 +169,22 @@ name = &#34;pygrocydm&#34;</code></pre>
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pygrocydm.battery" href="battery.html">pygrocydm.battery</a></code></li>
-<li><code><a title="pygrocydm.chore" href="chore.html">pygrocydm.chore</a></code></li>
-<li><code><a title="pygrocydm.grocy_api_client" href="grocy_api_client.html">pygrocydm.grocy_api_client</a></code></li>
-<li><code><a title="pygrocydm.grocy_datamanager" href="grocy_datamanager.html">pygrocydm.grocy_datamanager</a></code></li>
-<li><code><a title="pygrocydm.location" href="location.html">pygrocydm.location</a></code></li>
-<li><code><a title="pygrocydm.product" href="product.html">pygrocydm.product</a></code></li>
-<li><code><a title="pygrocydm.quantity_unit" href="quantity_unit.html">pygrocydm.quantity_unit</a></code></li>
-<li><code><a title="pygrocydm.shopping_list" href="shopping_list.html">pygrocydm.shopping_list</a></code></li>
-<li><code><a title="pygrocydm.task" href="task.html">pygrocydm.task</a></code></li>
-<li><code><a title="pygrocydm.task_category" href="task_category.html">pygrocydm.task_category</a></code></li>
-<li><code><a title="pygrocydm.utils" href="utils.html">pygrocydm.utils</a></code></li>
+<li><code><a title="pygrocydm" href="index.html">pygrocydm</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pygrocydm.task_category.TaskCategory" href="#pygrocydm.task_category.TaskCategory">TaskCategory</a></code></h4>
+<ul class="">
+<li><code><a title="pygrocydm.task_category.TaskCategory.description" href="#pygrocydm.task_category.TaskCategory.description">description</a></code></li>
+<li><code><a title="pygrocydm.task_category.TaskCategory.id" href="#pygrocydm.task_category.TaskCategory.id">id</a></code></li>
+<li><code><a title="pygrocydm.task_category.TaskCategory.name" href="#pygrocydm.task_category.TaskCategory.name">name</a></code></li>
+<li><code><a title="pygrocydm.task_category.TaskCategory.row_created_timestamp" href="#pygrocydm.task_category.TaskCategory.row_created_timestamp">row_created_timestamp</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
