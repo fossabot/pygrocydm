@@ -32,6 +32,8 @@ from .location import LOCATION_ENDPOINT, Location
 from .product import PRODUCTS_ENDPOINT, Product
 from .product_group import PRODUCT_GROUPS_ENDPOINT, ProductGroup
 from .quantity_unit import QUANTITY_UNITS_ENDPOINT, QuantityUnit
+from .quantity_unit_conversion import (QUANTITY_UNIT_CONVERTIONS_ENDPOINT,
+                                       QuantityUnitConversion)
 from .shopping_list import (SHOPPING_LIST_ENDPOINT, SHOPPING_LISTS_ENDPOINT,
                             ShoppingList, ShoppingListItem)
 from .task import TASKS_ENDPOINT, Task
@@ -68,6 +70,11 @@ class GrocyDataManager():
     def shopping_lists(self) -&gt; GrocyEntityList:
         cls = ShoppingList
         return GrocyEntityList(self.__api, cls, SHOPPING_LISTS_ENDPOINT)
+
+    def quantity_unit_conversions(self) -&gt; GrocyEntityList:
+        cls = QuantityUnitConversion
+        return GrocyEntityList(
+            self.__api, cls, QUANTITY_UNIT_CONVERTIONS_ENDPOINT)
 
     def quantity_units(self) -&gt; GrocyEntityList:
         cls = QuantityUnit
@@ -135,6 +142,11 @@ class GrocyDataManager():
     def shopping_lists(self) -&gt; GrocyEntityList:
         cls = ShoppingList
         return GrocyEntityList(self.__api, cls, SHOPPING_LISTS_ENDPOINT)
+
+    def quantity_unit_conversions(self) -&gt; GrocyEntityList:
+        cls = QuantityUnitConversion
+        return GrocyEntityList(
+            self.__api, cls, QUANTITY_UNIT_CONVERTIONS_ENDPOINT)
 
     def quantity_units(self) -&gt; GrocyEntityList:
         cls = QuantityUnit
@@ -222,6 +234,21 @@ class GrocyDataManager():
 <pre><code class="python">def products(self) -&gt; GrocyEntityList:
     cls = Product
     return GrocyEntityList(self.__api, cls, PRODUCTS_ENDPOINT)</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.grocy_datamanager.GrocyDataManager.quantity_unit_conversions"><code class="name flex">
+<span>def <span class="ident">quantity_unit_conversions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def quantity_unit_conversions(self) -&gt; GrocyEntityList:
+    cls = QuantityUnitConversion
+    return GrocyEntityList(
+        self.__api, cls, QUANTITY_UNIT_CONVERTIONS_ENDPOINT)</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_datamanager.GrocyDataManager.quantity_units"><code class="name flex">
@@ -314,12 +341,13 @@ class GrocyDataManager():
 <ul>
 <li>
 <h4><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager" href="#pygrocydm.grocy_datamanager.GrocyDataManager">GrocyDataManager</a></code></h4>
-<ul class="two-column">
+<ul class="">
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.batteries" href="#pygrocydm.grocy_datamanager.GrocyDataManager.batteries">batteries</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.chores" href="#pygrocydm.grocy_datamanager.GrocyDataManager.chores">chores</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.locations" href="#pygrocydm.grocy_datamanager.GrocyDataManager.locations">locations</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.product_groups" href="#pygrocydm.grocy_datamanager.GrocyDataManager.product_groups">product_groups</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.products" href="#pygrocydm.grocy_datamanager.GrocyDataManager.products">products</a></code></li>
+<li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.quantity_unit_conversions" href="#pygrocydm.grocy_datamanager.GrocyDataManager.quantity_unit_conversions">quantity_unit_conversions</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.quantity_units" href="#pygrocydm.grocy_datamanager.GrocyDataManager.quantity_units">quantity_units</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.shopping_list" href="#pygrocydm.grocy_datamanager.GrocyDataManager.shopping_list">shopping_list</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.shopping_lists" href="#pygrocydm.grocy_datamanager.GrocyDataManager.shopping_lists">shopping_lists</a></code></li>

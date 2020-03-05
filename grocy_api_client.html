@@ -24,14 +24,14 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from datetime import datetime
-import json
+<pre><code class="python">import json
+from datetime import datetime
 from typing import Tuple
 from urllib.parse import urljoin
 
 import requests
 
-from .utils import parse_int, parse_date
+from .utils import parse_date, parse_int
 
 DEFAULT_PORT_NUMBER = 9192
 
@@ -124,7 +124,9 @@ class GrocyEntityList():
         parsed_json = self.__api.get_request(self.__endpoint)
         if parsed_json:
             self.__list = tuple(
-                [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
+                [self.__cls(
+                    self.__api, self.__endpoint,
+                    response) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -137,7 +139,9 @@ class GrocyEntityList():
         parsed_json = self.__api.get_request(endpoint)
         if parsed_json:
             return tuple(
-                [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
+                [self.__cls(
+                    self.__api, self.__endpoint,
+                    response) for response in parsed_json])
         return None
 
     @property
@@ -336,6 +340,7 @@ class GrocyEntityList():
 <li><a title="pygrocydm.product.Product" href="product.html#pygrocydm.product.Product">Product</a></li>
 <li><a title="pygrocydm.product_group.ProductGroup" href="product_group.html#pygrocydm.product_group.ProductGroup">ProductGroup</a></li>
 <li><a title="pygrocydm.quantity_unit.QuantityUnit" href="quantity_unit.html#pygrocydm.quantity_unit.QuantityUnit">QuantityUnit</a></li>
+<li><a title="pygrocydm.quantity_unit_conversion.QuantityUnitConversion" href="quantity_unit_conversion.html#pygrocydm.quantity_unit_conversion.QuantityUnitConversion">QuantityUnitConversion</a></li>
 <li><a title="pygrocydm.shopping_list.ShoppingList" href="shopping_list.html#pygrocydm.shopping_list.ShoppingList">ShoppingList</a></li>
 <li><a title="pygrocydm.shopping_list.ShoppingListItem" href="shopping_list.html#pygrocydm.shopping_list.ShoppingListItem">ShoppingListItem</a></li>
 <li><a title="pygrocydm.task.Task" href="task.html#pygrocydm.task.Task">Task</a></li>
@@ -420,7 +425,9 @@ def row_created_timestamp(self) -&gt; datetime:
         parsed_json = self.__api.get_request(self.__endpoint)
         if parsed_json:
             self.__list = tuple(
-                [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
+                [self.__cls(
+                    self.__api, self.__endpoint,
+                    response) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -433,7 +440,9 @@ def row_created_timestamp(self) -&gt; datetime:
         parsed_json = self.__api.get_request(endpoint)
         if parsed_json:
             return tuple(
-                [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
+                [self.__cls(
+                    self.__api, self.__endpoint,
+                    response) for response in parsed_json])
         return None
 
     @property
@@ -486,7 +495,9 @@ def list(self) -&gt; Tuple[GrocyEntity]:
     parsed_json = self.__api.get_request(self.__endpoint)
     if parsed_json:
         self.__list = tuple(
-            [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])</code></pre>
+            [self.__cls(
+                self.__api, self.__endpoint,
+                response) for response in parsed_json])</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyEntityList.search"><code class="name flex">
@@ -503,7 +514,9 @@ def list(self) -&gt; Tuple[GrocyEntity]:
     parsed_json = self.__api.get_request(endpoint)
     if parsed_json:
         return tuple(
-            [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
+            [self.__cls(
+                self.__api, self.__endpoint,
+                response) for response in parsed_json])
     return None</code></pre>
 </details>
 </dd>
