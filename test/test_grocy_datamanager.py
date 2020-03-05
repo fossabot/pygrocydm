@@ -7,6 +7,7 @@ from requests.exceptions import HTTPError
 from pygrocydm import GrocyDataManager
 from pygrocydm.battery import Battery
 from pygrocydm.chore import Chore
+from pygrocydm.equipment import Equipment
 from pygrocydm.location import Location
 from pygrocydm.product import Product
 from pygrocydm.product_group import ProductGroup
@@ -185,3 +186,10 @@ class TestGrocyDataManager(TestCase):
         assert len(quantity_unit_conversions) >=1
         for quantity_unit_conversion in quantity_unit_conversions:
             assert isinstance(quantity_unit_conversion, QuantityUnitConversion)
+
+    def test_equipments_valid(self):
+        equipments = self.gdm.equipments().list
+        assert isinstance(equipments, tuple)
+        assert len(equipments) >=1
+        for equipment in equipments:
+            assert isinstance(equipment, Equipment)
