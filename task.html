@@ -39,11 +39,13 @@ class Task(GrocyEntity):
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__due_date = parse_date(parsed_json.get(&#39;due_date&#39;, None))
         self.__done = parse_bool(parsed_json.get(&#39;done&#39;), False)
-        self.__done_timestamp = parse_date(parsed_json.get(&#39;done_timestamp&#39;, None))
+        self.__done_timestamp = parse_date(
+            parsed_json.get(&#39;done_timestamp&#39;, None))
         self.__row_created_timestamp = parse_date(
             parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__category_id = parse_int(parsed_json.get(&#39;category_id&#39;), None)
-        self.__assigned_to_user_id = parse_int(parsed_json.get(&#39;assigned_to_user_id&#39;))
+        self.__assigned_to_user_id = parse_int(
+            parsed_json.get(&#39;assigned_to_user_id&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(TASKS_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 
@@ -110,11 +112,13 @@ class Task(GrocyEntity):
         self.__description = parsed_json.get(&#39;description&#39;, None)
         self.__due_date = parse_date(parsed_json.get(&#39;due_date&#39;, None))
         self.__done = parse_bool(parsed_json.get(&#39;done&#39;), False)
-        self.__done_timestamp = parse_date(parsed_json.get(&#39;done_timestamp&#39;, None))
+        self.__done_timestamp = parse_date(
+            parsed_json.get(&#39;done_timestamp&#39;, None))
         self.__row_created_timestamp = parse_date(
             parsed_json.get(&#39;row_created_timestamp&#39;))
         self.__category_id = parse_int(parsed_json.get(&#39;category_id&#39;), None)
-        self.__assigned_to_user_id = parse_int(parsed_json.get(&#39;assigned_to_user_id&#39;))
+        self.__assigned_to_user_id = parse_int(
+            parsed_json.get(&#39;assigned_to_user_id&#39;))
         self.__endpoint = &#39;{}/{}&#39;.format(TASKS_ENDPOINT, self.__id)
         super().__init__(api, self.__endpoint)
 

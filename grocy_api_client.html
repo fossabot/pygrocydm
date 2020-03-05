@@ -54,25 +54,27 @@ class GrocyApiClient():
         req_url = urljoin(self.__base_url, endpoint)
         resp = requests.get(
             req_url, verify=self.__verify_ssl, headers=self.__headers)
-        if resp.status_code != 200:
-            return None
-        return resp.json()
+        resp.raise_for_status()
+        if len(resp.content) &gt; 0:
+            return resp.json()
 
     def post_request(self, endpoint: str, data: dict):
         req_url = urljoin(self.__base_url, endpoint)
-        return requests.post(
+        resp = requests.post(
             req_url, verify=self.__verify_ssl,
             headers=self.__headers,
             data=data)
+        resp.raise_for_status()
+        if len(resp.content) &gt; 0:
+            return resp.json()
 
     def delete_request(self, endpoint: str):
         req_url = urljoin(self.__base_url, endpoint)
         resp = requests.delete(
             req_url, verify=self.__verify_ssl,
             headers=self.__headers)
-        if resp.status_code != 204:
-            return resp.json()
-        return True
+        resp.raise_for_status()
+        return None
 
     def put_request(self, endpoint: str, data: dict):
         up_header = self.__headers.copy()
@@ -83,9 +85,8 @@ class GrocyApiClient():
             req_url, verify=self.__verify_ssl,
             headers=up_header,
             data=json.dumps(data))
-        if resp.status_code != 204:
-            return resp.json()
-        return True
+        resp.raise_for_status()
+        return None
 
 
 class GrocyEntity():
@@ -116,10 +117,9 @@ class GrocyEntityList():
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
-        if resp.status_code == 200:
+        if resp:
             self.refresh()
-            return parse_int(resp.json().get(&#39;created_object_id&#39;))
-        return resp
+            return parse_int(resp.get(&#39;created_object_id&#39;))
 
     def search(self, search_str: str) -&gt; Tuple[GrocyEntity]:
         endpoint = &#39;{}/search/{}&#39;.format(self.__endpoint, search_str)
@@ -172,25 +172,27 @@ class GrocyEntityList():
         req_url = urljoin(self.__base_url, endpoint)
         resp = requests.get(
             req_url, verify=self.__verify_ssl, headers=self.__headers)
-        if resp.status_code != 200:
-            return None
-        return resp.json()
+        resp.raise_for_status()
+        if len(resp.content) &gt; 0:
+            return resp.json()
 
     def post_request(self, endpoint: str, data: dict):
         req_url = urljoin(self.__base_url, endpoint)
-        return requests.post(
+        resp = requests.post(
             req_url, verify=self.__verify_ssl,
             headers=self.__headers,
             data=data)
+        resp.raise_for_status()
+        if len(resp.content) &gt; 0:
+            return resp.json()
 
     def delete_request(self, endpoint: str):
         req_url = urljoin(self.__base_url, endpoint)
         resp = requests.delete(
             req_url, verify=self.__verify_ssl,
             headers=self.__headers)
-        if resp.status_code != 204:
-            return resp.json()
-        return True
+        resp.raise_for_status()
+        return None
 
     def put_request(self, endpoint: str, data: dict):
         up_header = self.__headers.copy()
@@ -201,9 +203,8 @@ class GrocyEntityList():
             req_url, verify=self.__verify_ssl,
             headers=up_header,
             data=json.dumps(data))
-        if resp.status_code != 204:
-            return resp.json()
-        return True</code></pre>
+        resp.raise_for_status()
+        return None</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -221,9 +222,8 @@ class GrocyEntityList():
     resp = requests.delete(
         req_url, verify=self.__verify_ssl,
         headers=self.__headers)
-    if resp.status_code != 204:
-        return resp.json()
-    return True</code></pre>
+    resp.raise_for_status()
+    return None</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyApiClient.get_request"><code class="name flex">
@@ -239,9 +239,9 @@ class GrocyEntityList():
     req_url = urljoin(self.__base_url, endpoint)
     resp = requests.get(
         req_url, verify=self.__verify_ssl, headers=self.__headers)
-    if resp.status_code != 200:
-        return None
-    return resp.json()</code></pre>
+    resp.raise_for_status()
+    if len(resp.content) &gt; 0:
+        return resp.json()</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyApiClient.post_request"><code class="name flex">
@@ -255,10 +255,13 @@ class GrocyEntityList():
 </summary>
 <pre><code class="python">def post_request(self, endpoint: str, data: dict):
     req_url = urljoin(self.__base_url, endpoint)
-    return requests.post(
+    resp = requests.post(
         req_url, verify=self.__verify_ssl,
         headers=self.__headers,
-        data=data)</code></pre>
+        data=data)
+    resp.raise_for_status()
+    if len(resp.content) &gt; 0:
+        return resp.json()</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyApiClient.put_request"><code class="name flex">
@@ -279,9 +282,8 @@ class GrocyEntityList():
         req_url, verify=self.__verify_ssl,
         headers=up_header,
         data=json.dumps(data))
-    if resp.status_code != 204:
-        return resp.json()
-    return True</code></pre>
+    resp.raise_for_status()
+    return None</code></pre>
 </details>
 </dd>
 </dl>
@@ -374,10 +376,9 @@ class GrocyEntityList():
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
-        if resp.status_code == 200:
+        if resp:
             self.refresh()
-            return parse_int(resp.json().get(&#39;created_object_id&#39;))
-        return resp
+            return parse_int(resp.get(&#39;created_object_id&#39;))
 
     def search(self, search_str: str) -&gt; Tuple[GrocyEntity]:
         endpoint = &#39;{}/search/{}&#39;.format(self.__endpoint, search_str)
@@ -419,10 +420,9 @@ def list(self) -&gt; Tuple[GrocyEntity]:
 </summary>
 <pre><code class="python">def add(self, item: dict):
     resp = self.__api.post_request(self.__endpoint, item)
-    if resp.status_code == 200:
+    if resp:
         self.refresh()
-        return parse_int(resp.json().get(&#39;created_object_id&#39;))
-    return resp</code></pre>
+        return parse_int(resp.get(&#39;created_object_id&#39;))</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_api_client.GrocyEntityList.refresh"><code class="name flex">
