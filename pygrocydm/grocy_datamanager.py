@@ -47,8 +47,8 @@ class GrocyDataManager():
 
     def quantity_unit_conversions(self) -> GrocyEntityList:
         cls = QuantityUnitConversion
-    return GrocyEntityList(
-        self.__api, cls, QUANTITY_UNIT_CONVERTIONS_ENDPOINT)
+        return GrocyEntityList(
+            self.__api, cls, QUANTITY_UNIT_CONVERTIONS_ENDPOINT)
 
     def quantity_units(self) -> GrocyEntityList:
         cls = QuantityUnit
