@@ -6,7 +6,8 @@ from .location import LOCATION_ENDPOINT, Location
 from .product import PRODUCTS_ENDPOINT, Product
 from .product_group import PRODUCT_GROUPS_ENDPOINT, ProductGroup
 from .quantity_unit import QUANTITY_UNITS_ENDPOINT, QuantityUnit
-from .quantity_unit_conversion import QUANTITY_UNIT_CONVERTIONS_ENDPOINT, QuantityUnitConversion
+from .quantity_unit_conversion import (QUANTITY_UNIT_CONVERTIONS_ENDPOINT,
+                                       QuantityUnitConversion)
 from .shopping_list import (SHOPPING_LIST_ENDPOINT, SHOPPING_LISTS_ENDPOINT,
                             ShoppingList, ShoppingListItem)
 from .task import TASKS_ENDPOINT, Task
@@ -46,12 +47,12 @@ class GrocyDataManager():
 
     def quantity_unit_conversions(self) -> GrocyEntityList:
         cls = QuantityUnitConversion
-        return GrocyEntityList(self.__api, cls, QUANTITY_UNIT_CONVERTIONS_ENDPOINT)
+    return GrocyEntityList(
+        self.__api, cls, QUANTITY_UNIT_CONVERTIONS_ENDPOINT)
 
     def quantity_units(self) -> GrocyEntityList:
         cls = QuantityUnit
         return GrocyEntityList(self.__api, cls, QUANTITY_UNITS_ENDPOINT)
-
 
     def tasks(self) -> GrocyEntityList:
         cls = Task

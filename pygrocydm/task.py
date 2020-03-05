@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_date, parse_int, parse_bool
+from .utils import parse_bool, parse_date, parse_int
 
 TASKS_ENDPOINT = 'objects/tasks'
 
