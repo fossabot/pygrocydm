@@ -27,7 +27,7 @@ class TestLocation(TestCase):
         self.assertCountEqual(list(location_keys), list(moked_keys))
 
     def test_parse_json(self):
-        location = Location(self.api.get_request(self.endpoint), self.api)
+        location = Location(self.api, LOCATION_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(location.id, int)
         assert isinstance(location.description, str) or location.description is None
         assert isinstance(location.name, str)

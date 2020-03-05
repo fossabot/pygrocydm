@@ -1,8 +1,7 @@
-from datetime import datetime
 from enum import Enum
 
 from .grocy_api_client import GrocyApiClient, GrocyEntity
-from .utils import parse_bool, parse_date, parse_int
+from .utils import parse_bool, parse_int
 
 CHORES_ENDPOINT = 'objects/chores'
 
@@ -23,8 +22,7 @@ class AssignmentType(Enum):
 
 
 class Chore(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get('id'))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get('name')
         self.__description = parsed_json.get('description', None)
         self.__period_type = parsed_json.get('period_type')
@@ -38,14 +36,7 @@ class Chore(GrocyEntity):
         self.__next_execution_assigned_to_user_id = parse_int(
             parsed_json.get('next_execution_assigned_to_user_id'),
             None)
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get('row_created_timestamp'))
-        self.__endpoint = '{}/{}'.format(CHORES_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -> int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -> str:
@@ -86,7 +77,3 @@ class Chore(GrocyEntity):
     @property
     def next_execution_assigned_to_user_id(self) -> int:
         return self.__next_execution_assigned_to_user_id
-
-    @property
-    def row_created_timestamp(self) -> datetime:
-        return self.__row_created_timestamp

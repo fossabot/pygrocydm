@@ -31,7 +31,7 @@ class TestTask(TestCase):
         self.assertCountEqual(list(task_keys), list(moked_keys))
 
     def test_parse_json(self):
-        task = Task(self.api.get_request(self.endpoint), self.api)
+        task = Task(self.api, TASKS_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(task.id, int)
         assert isinstance(task.description, str) or not task.description
         assert isinstance(task.name, str)

@@ -28,7 +28,7 @@ class TestBattery(TestCase):
         self.assertCountEqual(list(battery_keys), list(moked_keys))
 
     def test_parse_json(self):
-        battery = Battery(self.api.get_request(self.endpoint), self.api)
+        battery = Battery(self.api, BATTERIES_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(battery.id, int)
         assert isinstance(battery.description, str) or battery.description is None
         assert isinstance(battery.name, str)

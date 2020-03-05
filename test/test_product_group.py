@@ -26,7 +26,7 @@ class TestProductGroup(TestCase):
         self.assertCountEqual(list(product_group_keys), list(moked_keys))
 
     def test_parse_json(self):
-        product_group = ProductGroup(self.api.get_request(self.endpoint), self.api)
+        product_group = ProductGroup(self.api, PRODUCT_GROUPS_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(product_group.id, int)
         assert isinstance(product_group.description, str) or product_group.description is None
         assert isinstance(product_group.name, str)

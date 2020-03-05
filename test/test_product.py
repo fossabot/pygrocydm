@@ -4,7 +4,7 @@ from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
 from unittest import TestCase
 
 from pygrocydm.grocy_api_client import GrocyApiClient
-from pygrocydm.product import Product
+from pygrocydm.product import Product, PRODUCTS_ENDPOINT
 
 
 class TestProduct(TestCase):
@@ -45,7 +45,7 @@ class TestProduct(TestCase):
         self.assertCountEqual(list(product_keys), list(moked_keys))
 
     def test_parse_json(self):
-        product = Product(self.api.get_request(self.endpoint), self.api)
+        product = Product(self.api, PRODUCTS_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(product.id, int)
         assert isinstance(product.product_group_id, int)
         assert isinstance(product.name, str)

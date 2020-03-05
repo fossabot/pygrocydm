@@ -38,7 +38,7 @@ class TestChore(TestCase):
         self.assertCountEqual(list(chore_keys), list(moked_keys))
 
     def test_parse_json(self):
-        chore = Chore(self.api.get_request(self.endpoint), self.api)
+        chore = Chore(self.api, CHORES_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(chore.id, int)
         assert isinstance(chore.description, str) or chore.description is None
         assert isinstance(chore.name, str)

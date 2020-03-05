@@ -1,10 +1,11 @@
+from datetime import datetime
 import json
 from typing import Tuple
 from urllib.parse import urljoin
 
 import requests
 
-from .utils import parse_int
+from .utils import parse_int, parse_date
 
 DEFAULT_PORT_NUMBER = 9192
 
@@ -13,7 +14,7 @@ class GrocyApiClient():
     def __init__(
                 self, base_url, api_key,
                 port: int = DEFAULT_PORT_NUMBER, verify_ssl=True):
-        self.__base_url = '{}:{}/api/'.format(base_url, port)
+        self.__base_url = f"{base_url}:{port}/api/"
         self.__api_key = api_key
         self.__verify_ssl = verify_ssl
         if self.__api_key == "demo_mode":
@@ -62,15 +63,27 @@ class GrocyApiClient():
 
 
 class GrocyEntity():
-    def __init__(self, api: GrocyApiClient, endpoint: str):
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json: json):
         self.__api = api
-        self.__endpoint = endpoint
+        self.__parsed_json = parsed_json
+        self.__id = parse_int(parsed_json.get('id'))
+        self.__endpoint = f"{endpoint}/{self.__id}"
+        self.__row_created_timestamp = parse_date(
+            parsed_json.get('row_created_timestamp'))
 
     def edit(self, data: dict):
         return self.__api.put_request(self.__endpoint, data)
 
     def delete(self):
         return self.__api.delete_request(self.__endpoint)
+
+    @property
+    def id(self) -> int:
+        return self.__id
+
+    @property
+    def row_created_timestamp(self) -> datetime:
+        return self.__row_created_timestamp
 
 
 class GrocyEntityList():
@@ -85,7 +98,7 @@ class GrocyEntityList():
         parsed_json = self.__api.get_request(self.__endpoint)
         if parsed_json:
             self.__list = tuple(
-                [self.__cls(response, self.__api) for response in parsed_json])
+                [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
 
     def add(self, item: dict):
         resp = self.__api.post_request(self.__endpoint, item)
@@ -94,11 +107,11 @@ class GrocyEntityList():
             return parse_int(resp.get('created_object_id'))
 
     def search(self, search_str: str) -> Tuple[GrocyEntity]:
-        endpoint = '{}/search/{}'.format(self.__endpoint, search_str)
+        endpoint = f"{self.__endpoint}/search/{search_str}"
         parsed_json = self.__api.get_request(endpoint)
         if parsed_json:
             return tuple(
-                [self.__cls(response, self.__api) for response in parsed_json])
+                [self.__cls(self.__api, self.__endpoint, response) for response in parsed_json])
         return None
 
     @property

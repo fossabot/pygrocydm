@@ -26,7 +26,7 @@ class TestTaskCategory(TestCase):
         self.assertCountEqual(list(task_category_keys), list(moked_keys))
 
     def test_parse_json(self):
-        task_category = TaskCategory(self.api.get_request(self.endpoint), self.api)
+        task_category = TaskCategory(self.api, TASK_CATEGORIES_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(task_category.id, int)
         assert isinstance(task_category.description, str) or task_category.description is None
         assert isinstance(task_category.name, str)

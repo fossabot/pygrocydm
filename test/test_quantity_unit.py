@@ -28,7 +28,7 @@ class TestQuantityUnit(TestCase):
         self.assertCountEqual(list(quantity_unit_keys), list(moked_keys))
 
     def test_parse_json(self):
-        quantity_unit = QuantityUnit(self.api.get_request(self.endpoint), self.api)
+        quantity_unit = QuantityUnit(self.api, QUANTITY_UNITS_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(quantity_unit.id, int)
         assert isinstance(quantity_unit.description, str) or quantity_unit.description is None
         assert isinstance(quantity_unit.name, str)

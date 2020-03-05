@@ -7,25 +7,17 @@ TASKS_ENDPOINT = 'objects/tasks'
 
 
 class Task(GrocyEntity):
-    def __init__(self, parsed_json, api: GrocyApiClient):
-        self.__id = parse_int(parsed_json.get('id'))
+    def __init__(self, api: GrocyApiClient, endpoint: str, parsed_json):
         self.__name = parsed_json.get('name')
         self.__description = parsed_json.get('description', None)
         self.__due_date = parse_date(parsed_json.get('due_date', None))
         self.__done = parse_bool(parsed_json.get('done'), False)
         self.__done_timestamp = parse_date(
             parsed_json.get('done_timestamp', None))
-        self.__row_created_timestamp = parse_date(
-            parsed_json.get('row_created_timestamp'))
         self.__category_id = parse_int(parsed_json.get('category_id'), None)
         self.__assigned_to_user_id = parse_int(
             parsed_json.get('assigned_to_user_id'))
-        self.__endpoint = '{}/{}'.format(TASKS_ENDPOINT, self.__id)
-        super().__init__(api, self.__endpoint)
-
-    @property
-    def id(self) -> int:
-        return self.__id
+        super().__init__(api, endpoint, parsed_json)
 
     @property
     def name(self) -> str:
@@ -54,7 +46,3 @@ class Task(GrocyEntity):
     @property
     def assigned_to_user_id(self) -> int:
         return self.__assigned_to_user_id
-
-    @property
-    def row_created_timestamp(self) -> datetime:
-        return self.__row_created_timestamp
