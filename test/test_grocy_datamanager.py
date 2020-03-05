@@ -2,6 +2,7 @@ from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
 from unittest import TestCase
 
 import responses
+from requests.exceptions import HTTPError
 
 from pygrocydm import GrocyDataManager
 from pygrocydm.battery import Battery
@@ -45,8 +46,7 @@ class TestGrocyDataManager(TestCase):
         responses.add(responses.GET,
             '{}:{}/api/objects/products'.format(CONST_BASE_URL, CONST_PORT),
             status=400)
-        products = self.gdm.products().list
-        assert products is None
+        self.assertRaises(HTTPError, self.gdm.products)
 
     def test_chores_valid(self):
         chores = self.gdm.chores().list
@@ -101,23 +101,23 @@ class TestGrocyDataManager(TestCase):
         product_list = self.gdm.products()
         new_product = {}
         new_product['name'] = 'Test product'
-        resp = product_list.add(new_product)
-        assert "error_message" in resp.text
+        self.assertRaises(HTTPError, product_list.add, new_product)
 
     def test_edit_product_valid(self):
         fields = {}
         fields['name'] = 'Test'
-        assert self.gdm.products().list[-1].edit(fields)
+        assert not self.gdm.products().list[-1].edit(fields)
 
     def test_edit_product_error(self):
         fields = {}
         fields['nam'] = 'Test'
-        assert "error_message" in self.gdm.products().list[0].edit(fields)
+        product = self.gdm.products().list[0]
+        self.assertRaises(HTTPError, product.edit, fields)
 
     def test_product_delete_valid(self):
         product = self.gdm.products().list[-1]
         old_len = len(self.gdm.products().list)
-        assert product.delete()
+        assert not product.delete()
         self.gdm.products().refresh()
         new_len = len(self.gdm.products().list)
         assert new_len == old_len - 1
@@ -125,7 +125,7 @@ class TestGrocyDataManager(TestCase):
     def test_product_delete_error(self):
         product = self.gdm.products().list[-1]
         product.delete()
-        assert 'error' in product.delete()
+        self.assertRaises(HTTPError, product.delete)
 
     def test_search_product_valid(self):
         products = self.gdm.products().search("Co")
@@ -145,8 +145,8 @@ class TestGrocyDataManager(TestCase):
         responses.add(responses.GET,
             '{}/search/error'.format(url),
             status=400)
-        products = self.gdm.products().search("error")
-        assert products is None
+        products = self.gdm.products()
+        self.assertRaises(HTTPError, products.search, "error")
 
     def test_quantity_units_valid(self):
         quantity_units = self.gdm.quantity_units().list
