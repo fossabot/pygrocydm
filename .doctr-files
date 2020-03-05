@@ -5,6 +5,7 @@
 ./index.html
 ./location.html
 ./product.html
+./product_group.html
 ./quantity_unit.html
 ./shopping_list.html
 ./task.html
