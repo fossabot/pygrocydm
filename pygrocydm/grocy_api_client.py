@@ -48,7 +48,6 @@ class GrocyApiClient():
             req_url, verify=self.__verify_ssl,
             headers=self.__headers)
         resp.raise_for_status()
-        return None
 
     def put_request(self, endpoint: str, data: dict):
         up_header = self.__headers.copy()
@@ -60,7 +59,6 @@ class GrocyApiClient():
             headers=up_header,
             data=json.dumps(data))
         resp.raise_for_status()
-        return None
 
 
 class GrocyEntity():
