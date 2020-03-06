@@ -3,7 +3,7 @@ from datetime import datetime
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
 from unittest import TestCase
 
-from pygrocydm.chore import CHORES_ENDPOINT, Chore
+from pygrocydm.chore import CHORES_ENDPOINT, Chore, PeriodType, AssignmentType
 from pygrocydm.grocy_api_client import GrocyApiClient
 
 
@@ -38,17 +38,19 @@ class TestChore(TestCase):
         self.assertCountEqual(list(chore_keys), list(moked_keys))
 
     def test_parse_json(self):
+        assignment_types = set(item.value for item in AssignmentType)
+        period_types = set(item.value for item in PeriodType)
         chore = Chore(self.api, CHORES_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(chore.id, int)
         assert isinstance(chore.description, str) or chore.description is None
         assert isinstance(chore.name, str)
-        assert isinstance(chore.period_type, str)
+        assert isinstance(chore.period_type, str) and chore.period_type in period_types
         assert isinstance(chore.period_days, int) or chore.period_days is None
         assert isinstance(chore.next_execution_assigned_to_user_id, int) or chore.next_execution_assigned_to_user_id is None
         assert isinstance(chore.description, str) or chore.description is None
         assert isinstance(chore.period_config, str) or chore.period_config is None
         assert isinstance(chore.track_date_only, bool) or not chore.track_date_only
         assert isinstance(chore.rollover, bool) or not chore.rollover
-        assert isinstance(chore.assignment_type, str) or chore.assignment_type is None
+        assert (isinstance(chore.assignment_type, str) and chore.assignment_type in assignment_types) or chore.assignment_type is None
         assert isinstance(chore.assignment_config, str) or chore.assignment_config is None
         assert isinstance(chore.row_created_timestamp, datetime)

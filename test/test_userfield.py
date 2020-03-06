@@ -3,7 +3,7 @@ from datetime import datetime
 from test.test_const import CONST_BASE_URL, CONST_PORT, CONST_SSL
 from unittest import TestCase
 
-from pygrocydm.userfield import USERFIELDS_ENDPOINT, Userfield
+from pygrocydm.userfield import USERFIELDS_ENDPOINT, Userfield, UserfieldType
 from pygrocydm.grocy_api_client import GrocyApiClient
 
 
@@ -30,12 +30,13 @@ class TestUserfield(TestCase):
         self.assertCountEqual(list(userfield_keys), list(moked_keys))
 
     def test_parse_json(self):
+        uf_types = set(item.value for item in UserfieldType)
         userfield = Userfield(self.api, USERFIELDS_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(userfield.id, int)
         assert isinstance(userfield.entity, str)
         assert isinstance(userfield.name, str)
         assert isinstance(userfield.caption, str)
-        assert isinstance(userfield.type, str)
+        assert isinstance(userfield.type, str) and userfield.type in uf_types
         assert isinstance(userfield.show_as_column_in_tables, bool)
         assert isinstance(userfield.config, str) or userfield.config is None
         assert isinstance(userfield.row_created_timestamp, datetime)
