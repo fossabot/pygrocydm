@@ -1,6 +1,6 @@
 from .battery import BATTERIES_ENDPOINT, Battery
 from .chore import CHORES_ENDPOINT, Chore
-from .equipment import EQUIPMENTS_ENDPOINT, Equipment
+from .equipment import EQUIPMENT_ENDPOINT, Equipment
 from .grocy_api_client import (DEFAULT_PORT_NUMBER, GrocyApiClient,
                                GrocyEntityList)
 from .location import LOCATION_ENDPOINT, Location
@@ -67,6 +67,6 @@ class GrocyDataManager():
         cls = ProductGroup
         return GrocyEntityList(self.__api, cls, PRODUCT_GROUPS_ENDPOINT)
 
-    def equipments(self) -> GrocyEntityList:
+    def equipment(self) -> GrocyEntityList:
         cls = Equipment
-        return GrocyEntityList(self.__api, cls, EQUIPMENTS_ENDPOINT)
+        return GrocyEntityList(self.__api, cls, EQUIPMENT_ENDPOINT)

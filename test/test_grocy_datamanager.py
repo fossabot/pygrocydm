@@ -188,7 +188,7 @@ class TestGrocyDataManager(TestCase):
             assert isinstance(quantity_unit_conversion, QuantityUnitConversion)
 
     def test_equipments_valid(self):
-        equipments = self.gdm.equipments().list
+        equipments = self.gdm.equipment().list
         assert isinstance(equipments, tuple)
         assert len(equipments) >=1
         for equipment in equipments:

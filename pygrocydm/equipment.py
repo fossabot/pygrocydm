@@ -1,6 +1,6 @@
 from .grocy_api_client import GrocyApiClient, GrocyEntity
 
-EQUIPMENTS_ENDPOINT = 'objects/task_categories'
+EQUIPMENT_ENDPOINT = 'objects/equipment'
 
 
 class Equipment(GrocyEntity):
