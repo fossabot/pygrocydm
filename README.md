@@ -19,7 +19,15 @@
 - shopping_list
 - shopping_lists
 - quantity_units
+- quantity_unit_conversions
 - tasks
+- task_categories
+- product_groups
+- equipment
+- userfields
+- userentities
+- userobjects
+
 
 Check [Grocy API](https://demo.grocy.info/api#/Generic%20entity%20interactions)
 
