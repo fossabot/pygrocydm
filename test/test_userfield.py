@@ -30,7 +30,7 @@ class TestUserfield(TestCase):
         self.assertCountEqual(list(userfield_keys), list(moked_keys))
 
     def test_parse_json(self):
-        uf_types = set(item.value for item in UserfieldType)
+        uf_types = { item.value for item in UserfieldType }
         userfield = Userfield(self.api, USERFIELDS_ENDPOINT, self.api.get_request(self.endpoint))
         assert isinstance(userfield.id, int)
         assert isinstance(userfield.entity, str)
