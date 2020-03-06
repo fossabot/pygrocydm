@@ -16,6 +16,7 @@ from pygrocydm.quantity_unit_conversion import QuantityUnitConversion
 from pygrocydm.shopping_list import ShoppingList, ShoppingListItem
 from pygrocydm.task import Task
 from pygrocydm.task_category import TaskCategory
+from pygrocydm.userentity import UserEntity
 from pygrocydm.userfield import Userfield
 
 
@@ -201,3 +202,10 @@ class TestGrocyDataManager(TestCase):
         assert len(userfields) >=1
         for userfield in userfields:
             assert isinstance(userfield, Userfield)
+
+    def test_userentities_valid(self):
+        userentities = self.gdm.userentities().list
+        assert isinstance(userentities, tuple)
+        assert len(userentities) >=1
+        for userentity in userentities:
+            assert isinstance(userentity, UserEntity)
