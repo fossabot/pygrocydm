@@ -19,9 +19,9 @@ from .userobject import USEROBJECTS_ENDPOINT, UserObject
 
 
 class GrocyDataManager():
-	"""
-	Main class, Handles Generic Entities from Grocy
-	"""
+    """
+    Main class, Handles Generic Entities from Grocy
+    """
     def __init__(
             self, base_url, api_key,
             port: int = DEFAULT_PORT_NUMBER,
