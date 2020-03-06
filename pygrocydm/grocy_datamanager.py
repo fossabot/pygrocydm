@@ -13,6 +13,7 @@ from .shopping_list import (SHOPPING_LIST_ENDPOINT, SHOPPING_LISTS_ENDPOINT,
                             ShoppingList, ShoppingListItem)
 from .task import TASKS_ENDPOINT, Task
 from .task_category import TASK_CATEGORIES_ENDPOINT, TaskCategory
+from .userfield import USERFIELDS_ENDPOINT, Userfield
 
 
 class GrocyDataManager():
@@ -70,3 +71,7 @@ class GrocyDataManager():
     def equipment(self) -> GrocyEntityList:
         cls = Equipment
         return GrocyEntityList(self.__api, cls, EQUIPMENT_ENDPOINT)
+
+    def userfields(self) -> GrocyEntityList:
+        cls = Userfield
+        return GrocyEntityList(self.__api, cls, USERFIELDS_ENDPOINT)

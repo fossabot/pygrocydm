@@ -16,6 +16,7 @@ from pygrocydm.quantity_unit_conversion import QuantityUnitConversion
 from pygrocydm.shopping_list import ShoppingList, ShoppingListItem
 from pygrocydm.task import Task
 from pygrocydm.task_category import TaskCategory
+from pygrocydm.userfield import Userfield
 
 
 class TestGrocyDataManager(TestCase):
@@ -187,9 +188,16 @@ class TestGrocyDataManager(TestCase):
         for quantity_unit_conversion in quantity_unit_conversions:
             assert isinstance(quantity_unit_conversion, QuantityUnitConversion)
 
-    def test_equipments_valid(self):
+    def test_equipment_valid(self):
         equipments = self.gdm.equipment().list
         assert isinstance(equipments, tuple)
         assert len(equipments) >=1
         for equipment in equipments:
             assert isinstance(equipment, Equipment)
+
+    def test_userfields_valid(self):
+        userfields = self.gdm.userfields().list
+        assert isinstance(userfields, tuple)
+        assert len(userfields) >=1
+        for userfield in userfields:
+            assert isinstance(userfield, Userfield)
