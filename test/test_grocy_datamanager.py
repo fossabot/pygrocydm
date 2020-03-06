@@ -18,6 +18,7 @@ from pygrocydm.task import Task
 from pygrocydm.task_category import TaskCategory
 from pygrocydm.userentity import UserEntity
 from pygrocydm.userfield import Userfield
+from pygrocydm.userobject import UserObject
 
 
 class TestGrocyDataManager(TestCase):
@@ -209,3 +210,10 @@ class TestGrocyDataManager(TestCase):
         assert len(userentities) >=1
         for userentity in userentities:
             assert isinstance(userentity, UserEntity)
+
+    def test_userobjects_valid(self):
+        userobjects = self.gdm.userobjects().list
+        assert isinstance(userobjects, tuple)
+        assert len(userobjects) >=1
+        for userobject in userobjects:
+            assert isinstance(userobject, UserObject)
