@@ -26,6 +26,7 @@
 </summary>
 <pre><code class="python">from .battery import BATTERIES_ENDPOINT, Battery
 from .chore import CHORES_ENDPOINT, Chore
+from .equipment import EQUIPMENT_ENDPOINT, Equipment
 from .grocy_api_client import (DEFAULT_PORT_NUMBER, GrocyApiClient,
                                GrocyEntityList)
 from .location import LOCATION_ENDPOINT, Location
@@ -90,7 +91,11 @@ class GrocyDataManager():
 
     def product_groups(self) -&gt; GrocyEntityList:
         cls = ProductGroup
-        return GrocyEntityList(self.__api, cls, PRODUCT_GROUPS_ENDPOINT)</code></pre>
+        return GrocyEntityList(self.__api, cls, PRODUCT_GROUPS_ENDPOINT)
+
+    def equipment(self) -&gt; GrocyEntityList:
+        cls = Equipment
+        return GrocyEntityList(self.__api, cls, EQUIPMENT_ENDPOINT)</code></pre>
 </details>
 </section>
 <section>
@@ -162,7 +167,11 @@ class GrocyDataManager():
 
     def product_groups(self) -&gt; GrocyEntityList:
         cls = ProductGroup
-        return GrocyEntityList(self.__api, cls, PRODUCT_GROUPS_ENDPOINT)</code></pre>
+        return GrocyEntityList(self.__api, cls, PRODUCT_GROUPS_ENDPOINT)
+
+    def equipment(self) -&gt; GrocyEntityList:
+        cls = Equipment
+        return GrocyEntityList(self.__api, cls, EQUIPMENT_ENDPOINT)</code></pre>
 </details>
 <h3>Methods</h3>
 <dl>
@@ -192,6 +201,20 @@ class GrocyDataManager():
 <pre><code class="python">def chores(self) -&gt; GrocyEntityList:
     cls = Chore
     return GrocyEntityList(self.__api, cls, CHORES_ENDPOINT)</code></pre>
+</details>
+</dd>
+<dt id="pygrocydm.grocy_datamanager.GrocyDataManager.equipment"><code class="name flex">
+<span>def <span class="ident">equipment</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<section class="desc"></section>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def equipment(self) -&gt; GrocyEntityList:
+    cls = Equipment
+    return GrocyEntityList(self.__api, cls, EQUIPMENT_ENDPOINT)</code></pre>
 </details>
 </dd>
 <dt id="pygrocydm.grocy_datamanager.GrocyDataManager.locations"><code class="name flex">
@@ -344,6 +367,7 @@ class GrocyDataManager():
 <ul class="">
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.batteries" href="#pygrocydm.grocy_datamanager.GrocyDataManager.batteries">batteries</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.chores" href="#pygrocydm.grocy_datamanager.GrocyDataManager.chores">chores</a></code></li>
+<li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.equipment" href="#pygrocydm.grocy_datamanager.GrocyDataManager.equipment">equipment</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.locations" href="#pygrocydm.grocy_datamanager.GrocyDataManager.locations">locations</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.product_groups" href="#pygrocydm.grocy_datamanager.GrocyDataManager.product_groups">product_groups</a></code></li>
 <li><code><a title="pygrocydm.grocy_datamanager.GrocyDataManager.products" href="#pygrocydm.grocy_datamanager.GrocyDataManager.products">products</a></code></li>
