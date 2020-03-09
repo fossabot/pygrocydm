@@ -14,7 +14,7 @@ class TestEquipment(TestCase):
         self.endpoint = EQUIPMENT_ENDPOINT + '/1'
 
     def test_equipment_data_diff_valid(self):
-        equipment = self.api.get_request(self.endpoint)
+        equipment = self.api.do_request("GET", self.endpoint)
         equipment_keys = equipment.keys()
         moked_equipment_json = """{
             "id": "1",
@@ -27,7 +27,7 @@ class TestEquipment(TestCase):
         self.assertCountEqual(list(equipment_keys), list(moked_keys))
 
     def test_parse_json(self):
-        equipment = Equipment(self.api, EQUIPMENT_ENDPOINT, self.api.get_request(self.endpoint))
+        equipment = Equipment(self.api, EQUIPMENT_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(equipment.id, int)
         assert isinstance(equipment.description, str) or equipment.description is None
         assert isinstance(equipment.name, str)

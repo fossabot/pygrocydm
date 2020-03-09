@@ -14,7 +14,7 @@ class TestUserfield(TestCase):
         self.endpoint = USERFIELDS_ENDPOINT + '/1'
 
     def test_userfield_data_diff_valid(self):
-        userfield = self.api.get_request(self.endpoint)
+        userfield = self.api.do_request("GET", self.endpoint)
         userfield_keys = userfield.keys()
         moked_userfield_json = """{
             "id": "1",
@@ -31,7 +31,7 @@ class TestUserfield(TestCase):
 
     def test_parse_json(self):
         uf_types = { item.value for item in UserfieldType }
-        userfield = Userfield(self.api, USERFIELDS_ENDPOINT, self.api.get_request(self.endpoint))
+        userfield = Userfield(self.api, USERFIELDS_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(userfield.id, int)
         assert isinstance(userfield.entity, str)
         assert isinstance(userfield.name, str)

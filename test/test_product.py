@@ -14,7 +14,7 @@ class TestProduct(TestCase):
         self.endpoint = 'objects/products/1'
 
     def test_product_data_diff_valid(self):
-        product = self.api.get_request(self.endpoint)
+        product = self.api.do_request("GET", self.endpoint)
         product_keys = product.keys()
         moked_product_json = """{
             "id": "1",
@@ -45,7 +45,7 @@ class TestProduct(TestCase):
         self.assertCountEqual(list(product_keys), list(moked_keys))
 
     def test_parse_json(self):
-        product = Product(self.api, PRODUCTS_ENDPOINT, self.api.get_request(self.endpoint))
+        product = Product(self.api, PRODUCTS_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(product.id, int)
         assert isinstance(product.product_group_id, int)
         assert isinstance(product.name, str)

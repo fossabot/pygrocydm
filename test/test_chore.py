@@ -14,7 +14,7 @@ class TestChore(TestCase):
         self.endpoint = CHORES_ENDPOINT + '/1'
 
     def test_chore_data_diff_valid(self):
-        chore = self.api.get_request(self.endpoint)
+        chore = self.api.do_request("GET", self.endpoint)
         chore_keys = chore.keys()
         moked_chore_json = """{
             "id": "1",
@@ -40,7 +40,7 @@ class TestChore(TestCase):
     def test_parse_json(self):
         assignment_types = { item.value for item in AssignmentType }
         period_types = { item.value for item in PeriodType }
-        chore = Chore(self.api, CHORES_ENDPOINT, self.api.get_request(self.endpoint))
+        chore = Chore(self.api, CHORES_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(chore.id, int)
         assert isinstance(chore.description, str) or chore.description is None
         assert isinstance(chore.name, str)

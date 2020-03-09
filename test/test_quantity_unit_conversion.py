@@ -14,7 +14,7 @@ class TestQuantityUnitConversion(TestCase):
         self.endpoint = f"{QUANTITY_UNIT_CONVERTIONS_ENDPOINT }/1"
 
     def test_quantity_unit_conversion_data_diff_valid(self):
-        quantity_unit_conversion = self.api.get_request(self.endpoint)
+        quantity_unit_conversion = self.api.do_request("GET", self.endpoint)
         quantity_unit_conversion_keys = quantity_unit_conversion.keys()
         moked_quantity_unit_conversion_json = """{
             "id": "1",
@@ -28,7 +28,7 @@ class TestQuantityUnitConversion(TestCase):
         self.assertCountEqual(list(quantity_unit_conversion_keys), list(moked_keys))
 
     def test_parse_json(self):
-        quantity_unit_conversion = QuantityUnitConversion(self.api, QUANTITY_UNIT_CONVERTIONS_ENDPOINT, self.api.get_request(self.endpoint))
+        quantity_unit_conversion = QuantityUnitConversion(self.api, QUANTITY_UNIT_CONVERTIONS_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(quantity_unit_conversion.id, int)
         assert isinstance(quantity_unit_conversion.from_qu_id, int)
         assert isinstance(quantity_unit_conversion.to_qu_id, int)

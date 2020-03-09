@@ -14,7 +14,7 @@ class TestUserEntity(TestCase):
         self.endpoint = USEROBJECTS_ENDPOINT + '/1'
 
     def test_userobject_data_diff_valid(self):
-        userobject = self.api.get_request(self.endpoint)
+        userobject = self.api.do_request("GET", self.endpoint)
         userobject_keys = userobject.keys()
         moked_userobject_json = """{
             "id": "1",
@@ -25,7 +25,7 @@ class TestUserEntity(TestCase):
         self.assertCountEqual(list(userobject_keys), list(moked_keys))
 
     def test_parse_json(self):
-        userobject = UserObject(self.api, USEROBJECTS_ENDPOINT, self.api.get_request(self.endpoint))
+        userobject = UserObject(self.api, USEROBJECTS_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(userobject.id, int)
         assert isinstance(userobject.userentity_id, int)
         assert isinstance(userobject.row_created_timestamp, datetime)

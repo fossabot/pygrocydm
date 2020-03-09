@@ -14,7 +14,7 @@ class TestProductGroup(TestCase):
         self.endpoint = PRODUCT_GROUPS_ENDPOINT + '/1'
 
     def test_product_group_data_diff_valid(self):
-        product_group = self.api.get_request(self.endpoint)
+        product_group = self.api.do_request("GET", self.endpoint)
         product_group_keys = product_group.keys()
         moked_product_group_json = """{
             "id": "1",
@@ -26,7 +26,7 @@ class TestProductGroup(TestCase):
         self.assertCountEqual(list(product_group_keys), list(moked_keys))
 
     def test_parse_json(self):
-        product_group = ProductGroup(self.api, PRODUCT_GROUPS_ENDPOINT, self.api.get_request(self.endpoint))
+        product_group = ProductGroup(self.api, PRODUCT_GROUPS_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(product_group.id, int)
         assert isinstance(product_group.description, str) or product_group.description is None
         assert isinstance(product_group.name, str)

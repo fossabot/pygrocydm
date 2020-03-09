@@ -25,41 +25,33 @@ class GrocyApiClient():
                 "GROCY-API-KEY": api_key
             }
 
-    def get_request(self, endpoint: str):
-        req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.get(
-            req_url, verify=self.__verify_ssl, headers=self.__headers)
+    def do_request(self, request_type: str, end_url: str, data=None):
+        req_url = urljoin(self.__base_url, end_url)
+        if request_type == "GET":
+            resp = requests.get(
+                req_url, verify=self.__verify_ssl, headers=self.__headers)
+        if request_type == "POST":
+            if data:
+                resp = requests.post(
+                    req_url, verify=self.__verify_ssl,
+                    headers=self.__headers,
+                    data=data)
+        if request_type == "PUT":
+            if data:
+                up_header = self.__headers.copy()
+                up_header['accept'] = '*/*'
+                up_header['Content-Type'] = 'application/json'
+                resp = requests.put(
+                    req_url, verify=self.__verify_ssl,
+                    headers=up_header,
+                    data=json.dumps(data))
+        if request_type == "DELETE":
+            resp = requests.delete(
+                req_url, verify=self.__verify_ssl,
+                headers=self.__headers)
         resp.raise_for_status()
         if len(resp.content) > 0:
             return resp.json()
-
-    def post_request(self, endpoint: str, data: dict):
-        req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.post(
-            req_url, verify=self.__verify_ssl,
-            headers=self.__headers,
-            data=data)
-        resp.raise_for_status()
-        if len(resp.content) > 0:
-            return resp.json()
-
-    def delete_request(self, endpoint: str):
-        req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.delete(
-            req_url, verify=self.__verify_ssl,
-            headers=self.__headers)
-        resp.raise_for_status()
-
-    def put_request(self, endpoint: str, data: dict):
-        up_header = self.__headers.copy()
-        up_header['accept'] = '*/*'
-        up_header['Content-Type'] = 'application/json'
-        req_url = urljoin(self.__base_url, endpoint)
-        resp = requests.put(
-            req_url, verify=self.__verify_ssl,
-            headers=up_header,
-            data=json.dumps(data))
-        resp.raise_for_status()
 
 
 class GrocyEntity():
@@ -72,10 +64,10 @@ class GrocyEntity():
             parsed_json.get('row_created_timestamp'))
 
     def edit(self, data: dict):
-        return self.__api.put_request(self.__endpoint, data)
+        return self.__api.do_request("PUT", self.__endpoint, data)
 
     def delete(self):
-        return self.__api.delete_request(self.__endpoint)
+        return self.__api.do_request("DELETE", self.__endpoint)
 
     @property
     def id(self) -> int:
@@ -95,7 +87,7 @@ class GrocyEntityList():
         self.refresh()
 
     def refresh(self):
-        parsed_json = self.__api.get_request(self.__endpoint)
+        parsed_json = self.__api.do_request("GET", self.__endpoint)
         if parsed_json:
             self.__list = tuple(
                 [self.__cls(
@@ -103,20 +95,19 @@ class GrocyEntityList():
                     response) for response in parsed_json])
 
     def add(self, item: dict):
-        resp = self.__api.post_request(self.__endpoint, item)
+        resp = self.__api.do_request("POST", self.__endpoint, item)
         if resp:
             self.refresh()
             return parse_int(resp.get('created_object_id'))
 
     def search(self, search_str: str) -> Tuple[GrocyEntity]:
         endpoint = f"{self.__endpoint}/search/{search_str}"
-        parsed_json = self.__api.get_request(endpoint)
+        parsed_json = self.__api.do_request("GET", endpoint)
         if parsed_json:
             return tuple(
                 [self.__cls(
                     self.__api, self.__endpoint,
                     response) for response in parsed_json])
-        return None
 
     @property
     def list(self) -> Tuple[GrocyEntity]:

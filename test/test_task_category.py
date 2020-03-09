@@ -14,7 +14,7 @@ class TestTaskCategory(TestCase):
         self.endpoint = TASK_CATEGORIES_ENDPOINT + '/1'
 
     def test_task_category_data_diff_valid(self):
-        task_category = self.api.get_request(self.endpoint)
+        task_category = self.api.do_request("GET", self.endpoint)
         task_category_keys = task_category.keys()
         moked_task_category_json = """{
             "id": "1",
@@ -26,7 +26,7 @@ class TestTaskCategory(TestCase):
         self.assertCountEqual(list(task_category_keys), list(moked_keys))
 
     def test_parse_json(self):
-        task_category = TaskCategory(self.api, TASK_CATEGORIES_ENDPOINT, self.api.get_request(self.endpoint))
+        task_category = TaskCategory(self.api, TASK_CATEGORIES_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(task_category.id, int)
         assert isinstance(task_category.description, str) or task_category.description is None
         assert isinstance(task_category.name, str)

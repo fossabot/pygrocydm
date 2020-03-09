@@ -14,7 +14,7 @@ class TestLocation(TestCase):
         self.endpoint = LOCATION_ENDPOINT + '/2'
 
     def test_location_data_diff_valid(self):
-        location = self.api.get_request(self.endpoint)
+        location = self.api.do_request("GET", self.endpoint)
         location_keys = location.keys()
         moked_location_json = """{
             "id": "2",
@@ -27,7 +27,7 @@ class TestLocation(TestCase):
         self.assertCountEqual(list(location_keys), list(moked_keys))
 
     def test_parse_json(self):
-        location = Location(self.api, LOCATION_ENDPOINT, self.api.get_request(self.endpoint))
+        location = Location(self.api, LOCATION_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(location.id, int)
         assert isinstance(location.description, str) or location.description is None
         assert isinstance(location.name, str)

@@ -14,7 +14,7 @@ class TestBattery(TestCase):
         self.endpoint = BATTERIES_ENDPOINT + '/1'
 
     def test_battery_data_diff_valid(self):
-        battery = self.api.get_request(self.endpoint)
+        battery = self.api.do_request("GET", self.endpoint)
         battery_keys = battery.keys()
         moked_battery_json = """{
             "id": "1",
@@ -28,7 +28,7 @@ class TestBattery(TestCase):
         self.assertCountEqual(list(battery_keys), list(moked_keys))
 
     def test_parse_json(self):
-        battery = Battery(self.api, BATTERIES_ENDPOINT, self.api.get_request(self.endpoint))
+        battery = Battery(self.api, BATTERIES_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(battery.id, int)
         assert isinstance(battery.description, str) or battery.description is None
         assert isinstance(battery.name, str)

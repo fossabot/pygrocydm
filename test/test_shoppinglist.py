@@ -16,7 +16,7 @@ class TestShoppingList(TestCase):
         self.endpoint = SHOPPING_LISTS_ENDPOINT + '/1'
 
     def test_shopping_list_data_diff_valid(self):
-        shopping_list = self.api.get_request(self.endpoint)
+        shopping_list = self.api.do_request("GET", self.endpoint)
         shopping_list_keys = shopping_list.keys()
         moked_shopping_list_json = """{
             "id": "1",
@@ -28,7 +28,7 @@ class TestShoppingList(TestCase):
         self.assertCountEqual(list(shopping_list_keys), list(moked_keys))
 
     def test_parse_json(self):
-        shopping_list = ShoppingList(self.api, SHOPPING_LIST_ENDPOINT, self.api.get_request(self.endpoint))
+        shopping_list = ShoppingList(self.api, SHOPPING_LIST_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(shopping_list.id, int)
         assert isinstance(shopping_list.description, str) or shopping_list.description is None
         assert isinstance(shopping_list.name, str)
@@ -42,7 +42,7 @@ class TestShoppingListItem(TestCase):
         self.endpoint = SHOPPING_LIST_ENDPOINT + '/1'
 
     def test_shopping_list_item_data_diff_valid(self):
-        shopping_list_item = self.api.get_request(self.endpoint)
+        shopping_list_item = self.api.do_request("GET", self.endpoint)
         shopping_list_item_keys = shopping_list_item.keys()
         moked_shopping_list_item_json = """{
             "id": "1",
@@ -57,7 +57,7 @@ class TestShoppingListItem(TestCase):
         self.assertCountEqual(list(shopping_list_item_keys), list(moked_keys))
 
     def test_parse_json(self):
-        shopping_list_item = ShoppingListItem(self.api, SHOPPING_LISTS_ENDPOINT, self.api.get_request(self.endpoint))
+        shopping_list_item = ShoppingListItem(self.api, SHOPPING_LISTS_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(shopping_list_item.id, int)
         assert isinstance(shopping_list_item.product_id, int) or shopping_list_item.product_id is None
         assert isinstance(shopping_list_item.note, str) or shopping_list_item.note is None

@@ -14,7 +14,7 @@ class TestTask(TestCase):
         self.endpoint = TASKS_ENDPOINT + '/1'
 
     def test_task_data_diff_valid(self):
-        task = self.api.get_request(self.endpoint)
+        task = self.api.do_request("GET", self.endpoint)
         task_keys = task.keys()
         moked_task_json = """{
             "id": "1",
@@ -31,7 +31,7 @@ class TestTask(TestCase):
         self.assertCountEqual(list(task_keys), list(moked_keys))
 
     def test_parse_json(self):
-        task = Task(self.api, TASKS_ENDPOINT, self.api.get_request(self.endpoint))
+        task = Task(self.api, TASKS_ENDPOINT, self.api.do_request("GET", self.endpoint))
         assert isinstance(task.id, int)
         assert isinstance(task.description, str) or not task.description
         assert isinstance(task.name, str)
